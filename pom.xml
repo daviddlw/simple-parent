@@ -14,12 +14,12 @@
 	</modules>
 
 	<properties>
+		<self.version>1.0</self.version>
 		<junit.version>4.11</junit.version>
 		<fastjson.version>1.2.7</fastjson.version>
 		<commons.lang3.version>3.3.2</commons.lang3.version>
 		<javax.servlet.version>3.1.0</javax.servlet.version>
 		<spring.version>4.2.6.RELEASE</spring.version>
-		<self.version>1.0</self.version>
 		<taglibs.version>1.1.2</taglibs.version>
 		<jstl.version>1.2.1</jstl.version>
 		<self.version>1.0</self.version>
@@ -28,9 +28,16 @@
 		<spring.mongo.version>1.9.2.RELEASE</spring.mongo.version>
 		<log4j.version>1.2.17</log4j.version>
 		<sl4j.version>1.7.12</sl4j.version>
+		<freemarker.version>2.3.20</freemarker.version>
 	</properties>
 
 	<dependencies>
+		<!-- ============ thirty parties ================= -->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>${freemarker.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -38,8 +45,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- <dependency> <groupId>org.mongodb</groupId> <artifactId>mongo-java-driver</artifactId> 
-			<version>${mongo.version}</version> </dependency> -->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -82,7 +87,6 @@
 			<version>${jstl.version}</version>
 		</dependency>
 
-		<!-- jackson start -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
@@ -94,10 +98,8 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
-		<!-- jackson end -->
 
-		<!-- SPRING begin -->
-
+		<!-- ============ spring ================= -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-mongodb</artifactId>

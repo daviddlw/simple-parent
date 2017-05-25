@@ -8,15 +8,28 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
 		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.5.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
-	<context:component-scan base-package="com.david" />
-	<mvc:annotation-driven />
+	<context:component-scan base-package="com.david.webapp">
+	</context:component-scan>
 
+	<bean name="beanResolver"
+		class="org.springframework.web.servlet.view.BeanNameViewResolver"></bean>
 	<bean name="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.JstlView"></property>
 		<property name="prefix" value="/WEB-INF/"></property>
 		<property name="suffix" value=".jsp"></property>
+		<property name="order" value="1"></property>
+	</bean>
+
+	<bean id="freemarkerViewResolver"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="contentType" value="text/html; charset=UTF-8" />
+		<property name="exposeRequestAttributes" value="false" />
+		<property name="exposeSessionAttributes" value="false" />
+		<property name="exposeSpringMacroHelpers" value="true" />
+		<property name="cacheUnresolved" value="false" />
+		<property name="order" value="0" />
 	</bean>
 
 	<mvc:interceptors>
@@ -26,32 +39,40 @@
 		</mvc:interceptor>
 	</mvc:interceptors>
 
-	<context:property-placeholder location="classpath:config/mongodb.properties" />
-	<mongo:mongo id="mongo" replica-set="${mongo.hostport}">
-		<mongo:options connections-per-host="${mongo.connectionsPerHost}"
-			threads-allowed-to-block-for-connection-multiplier="${mongo.threadsAllowedToBlockForConnectionMultiplier}"
-			connect-timeout="${mongo.connectTimeout}" max-wait-time="${mongo.maxWaitTime}"
-			auto-connect-retry="${mongo.autoConnectRetry}" socket-keep-alive="${mongo.socketKeepAlive}"
-			socket-timeout="${mongo.socketTimeout}" slave-ok="${mongo.slaveOk}"
-			write-number="1" write-timeout="0" write-fsync="true" />
-	</mongo:mongo>
-
-	<mongo:db-factory id="davidMongo" dbname="davidMongo"
-		mongo-ref="mongo" />
-
-	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-		<constructor-arg name="mongoDbFactory" ref="davidMongo" />
+	<!-- 针对json字符串转换 -->
+	<bean id="fastJsonMessageConverter"
+		class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+		<property name="charset" value="UTF-8" />
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json</value>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+		<property name="features">
+			<list>
+				<value>WriteMapNullValue</value>
+				<value>QuoteFieldNames</value>
+			</list>
+		</property>
 	</bean>
 
-	<!-- 针对json字符串转换 -->
-	<bean id="jacksonMessageConverter"
-		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+	<bean id="stringMessageConverter"
+		class="org.springframework.http.converter.StringHttpMessageConverter">
+		<constructor-arg value="UTF-8" />
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/plain;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
 
 	<bean
 		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 		<property name="messageConverters">
 			<list>
-				<ref bean="jacksonMessageConverter" />
+				<ref bean="stringMessageConverter" />
+				<ref bean="fastJsonMessageConverter" />
 			</list>
 		</property>
 	</bean>

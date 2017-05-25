@@ -23,6 +23,11 @@
 			<artifactId>simple-service</artifactId>
 			<version>${self.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>${freemarker.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>simple-webapp</finalName>

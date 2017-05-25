@@ -10,7 +10,7 @@
 <body>
 	<h1>User</h1>
 	<p style="font-size: 14px; font-family: Microsoft YaHei;">
-		Id: ${user.id} <br /> Name: ${user.name}
+		Id: ${user.userId} <br /> Name: ${user.userName}
 	</p>
 </body>
 </html>
