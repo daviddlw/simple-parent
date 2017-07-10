@@ -8,8 +8,8 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
 		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.5.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
-	<context:component-scan base-package="com.david.webapp">
-	</context:component-scan>
+	<context:component-scan base-package="com.david.webapp" />
+	<mvc:annotation-driven />
 
 	<bean name="beanResolver"
 		class="org.springframework.web.servlet.view.BeanNameViewResolver"></bean>
@@ -20,16 +20,6 @@
 		<property name="prefix" value="/WEB-INF/"></property>
 		<property name="suffix" value=".jsp"></property>
 		<property name="order" value="1"></property>
-	</bean>
-
-	<bean id="freemarkerViewResolver"
-		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-		<property name="contentType" value="text/html; charset=UTF-8" />
-		<property name="exposeRequestAttributes" value="false" />
-		<property name="exposeSessionAttributes" value="false" />
-		<property name="exposeSpringMacroHelpers" value="true" />
-		<property name="cacheUnresolved" value="false" />
-		<property name="order" value="0" />
 	</bean>
 
 	<mvc:interceptors>

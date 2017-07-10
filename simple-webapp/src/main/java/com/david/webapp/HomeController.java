@@ -18,7 +18,7 @@ import com.david.dto.User;
 import com.david.facade.UserService;
 
 @Controller
-@RequestMapping("/index")
+@RequestMapping("index")
 public class HomeController {
 
 	@Autowired
@@ -50,7 +50,7 @@ public class HomeController {
 	@RequestMapping(value = "/angular_sample.html", method = { RequestMethod.POST, RequestMethod.GET })
 	public String angularSample(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("angularSample");
-		return "angular_sample.html";
+		return "angular";
 	}
 
 	@RequestMapping(value = "/angular", method = { RequestMethod.POST, RequestMethod.GET })
