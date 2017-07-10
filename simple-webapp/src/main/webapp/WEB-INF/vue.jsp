@@ -7,7 +7,7 @@
 <base href="<%=basePath%>">
 <!-- 必须放在head里生效作为基链接 -->
 <script type="text/javascript" src="js/vue.min.js"></script>
-
+<!-- vue+vue-resource+vue-validator就可以完成一个简单的项目了 -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Vue HelloWorld</title>
 </head>
