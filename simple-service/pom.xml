@@ -20,5 +20,10 @@
 			<artifactId>simple-facade</artifactId>
 			<version>${self.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.david</groupId>
+			<artifactId>simple-dal</artifactId>
+			<version>${self.version}</version>
+		</dependency>
 	</dependencies>
 </project>
