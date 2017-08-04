@@ -30,7 +30,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>simple-webapp</finalName>
+		<finalName>simpleweb</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
