@@ -1,4 +1,4 @@
-package com.david.service;
+package com.david.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +11,7 @@ import com.david.dal.dao.MemberInfoMapper;
 import com.david.dal.model.MemberInfo;
 import com.david.dal.model.MemberInfoExample;
 import com.david.dto.MemberDTO;
+import com.david.service.MemberInfoService;
 
 @Service
 public class MemberInfoServiceImpl implements MemberInfoService {
@@ -39,7 +40,7 @@ public class MemberInfoServiceImpl implements MemberInfoService {
 		List<MemberInfo> list = memberInfoMapper.selectByExample(example);
 		List<MemberDTO> memberDTOs = new ArrayList<>();
 		for (MemberInfo memberInfo : list) {
-			transferInfo(memberInfo);
+			memberDTOs.add(transferInfo(memberInfo));
 		}
 		return memberDTOs;
 	}

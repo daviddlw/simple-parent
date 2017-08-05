@@ -1,5 +1,7 @@
 package com.david.webapp;
 
+import java.util.List;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -16,6 +18,7 @@ import com.david.dto.MemberDTO;
 import com.david.dto.request.AddMemberRequest;
 import com.david.dto.request.MemberRequest;
 import com.david.dto.response.AddMemberResponse;
+import com.david.dto.response.ListMemberResponse;
 import com.david.dto.response.MemberResponse;
 import com.david.service.MemberInfoService;
 
@@ -23,6 +26,7 @@ import com.david.service.MemberInfoService;
 @RequestMapping("member")
 public class MemberController {
 
+	private static final String SUCCESS_CODE = "1000";
 	@Autowired
 	private MemberInfoService memberInfoService;
 
@@ -39,7 +43,7 @@ public class MemberController {
 		memberDTO.setAge(RandomUtils.nextInt(1, 30));
 		MemberResponse response = new MemberResponse();
 		response.setMemberDTO(memberDTO);
-		response.setRespCode("1000");
+		response.setRespCode(SUCCESS_CODE);
 		response.setMsg(StringUtils.EMPTY);
 		return response;
 	}
@@ -49,7 +53,7 @@ public class MemberController {
 	public AddMemberResponse getMemberInfo(@RequestBody AddMemberRequest request) {
 		memberInfoService.insertMemberInfo(request.getMemberDTO());
 		AddMemberResponse response = new AddMemberResponse();
-		response.setRespCode("1000");
+		response.setRespCode(SUCCESS_CODE);
 		response.setMsg(StringUtils.EMPTY);
 		return response;
 	}
@@ -61,7 +65,18 @@ public class MemberController {
 		MemberDTO memberDTO = memberInfoService.getMemberInfo(request.getMemberNo());
 		MemberResponse response = new MemberResponse();
 		response.setMemberDTO(memberDTO);
-		response.setRespCode("1000");
+		response.setRespCode(SUCCESS_CODE);
+		response.setMsg(StringUtils.EMPTY);
+		return response;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/op_get_member_infos.json", method = { RequestMethod.POST }, consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public ListMemberResponse getMemberInfos() {
+		List<MemberDTO> list = memberInfoService.getMemberInfos(new MemberDTO());
+		ListMemberResponse response = new ListMemberResponse();
+		response.setMemberDTOs(list);
+		response.setRespCode(SUCCESS_CODE);
 		response.setMsg(StringUtils.EMPTY);
 		return response;
 	}

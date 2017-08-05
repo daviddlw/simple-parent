@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.david.dto.User;
-import com.david.facade.UserService;
+import com.david.service.UserService;
 
 @Controller
 @RequestMapping("index")

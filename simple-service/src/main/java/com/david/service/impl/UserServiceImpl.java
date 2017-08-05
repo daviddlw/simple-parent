@@ -1,8 +1,8 @@
-package com.david.service;
+package com.david.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.david.facade.UserService;
+import com.david.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
