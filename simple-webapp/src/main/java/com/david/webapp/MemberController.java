@@ -3,6 +3,7 @@ package com.david.webapp;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,12 +13,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.david.dto.MemberDTO;
+import com.david.dto.request.AddMemberRequest;
 import com.david.dto.request.MemberRequest;
+import com.david.dto.response.AddMemberResponse;
 import com.david.dto.response.MemberResponse;
+import com.david.service.MemberInfoService;
 
 @Controller
 @RequestMapping("member")
 public class MemberController {
+
+	@Autowired
+	private MemberInfoService memberInfoService;
 
 	@ResponseBody
 	@RequestMapping(value = "/op_get_member_info.json", method = { RequestMethod.POST }, consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE })
@@ -30,6 +37,28 @@ public class MemberController {
 		memberDTO.setMobile("131" + RandomStringUtils.randomNumeric(8));
 		memberDTO.setEmail(RandomStringUtils.randomNumeric(9) + "@qq.com");
 		memberDTO.setAge(RandomUtils.nextInt(1, 30));
+		MemberResponse response = new MemberResponse();
+		response.setMemberDTO(memberDTO);
+		response.setRespCode("1000");
+		response.setMsg(StringUtils.EMPTY);
+		return response;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/op_add_member_info.json", method = { RequestMethod.POST }, consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public AddMemberResponse getMemberInfo(@RequestBody AddMemberRequest request) {
+		memberInfoService.insertMemberInfo(request.getMemberDTO());
+		AddMemberResponse response = new AddMemberResponse();
+		response.setRespCode("1000");
+		response.setMsg(StringUtils.EMPTY);
+		return response;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/op_get_member_info_v2.json", method = { RequestMethod.POST }, consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public MemberResponse getMemberInfoV2(@RequestBody MemberRequest request) {
+		System.out.println(JSON.toJSONString(request, true));
+		MemberDTO memberDTO = memberInfoService.getMemberInfo(request.getMemberNo());
 		MemberResponse response = new MemberResponse();
 		response.setMemberDTO(memberDTO);
 		response.setRespCode("1000");
