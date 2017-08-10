@@ -1,3 +1,4 @@
+use spider_man;
 CREATE TABLE member_info
 (
 	id INT NOT NULL auto_increment,

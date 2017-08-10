@@ -28,10 +28,35 @@
 			<artifactId>freemarker</artifactId>
 			<version>${freemarker.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mortbay.jetty</groupId>
+			<artifactId>jetty-maven-plugin</artifactId>
+			<version>${jetty-maven-plugin.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
-		<finalName>simpleweb</finalName>
+		<finalName>simple-webapp</finalName>
 		<plugins>
+			<!-- jetty自动部署插件 -->
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>8.1.16.v20140903</version>
+				<configuration>
+					<webAppConfig>
+						<contextPath>/simple-webapp</contextPath>
+					</webAppConfig>
+					<stopPort>9966</stopPort>
+					<stopKey>foo</stopKey>
+					<scanIntervalSeconds>3</scanIntervalSeconds>
+					<scanTargetPatterns>
+						<scanTargetPattern>
+							<directory>src/main/webapp/WEB-INF</directory>
+						</scanTargetPattern>
+					</scanTargetPatterns>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
