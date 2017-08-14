@@ -1,6 +1,7 @@
 package org.simple.dal;
 
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -79,6 +80,17 @@ public class AppTest {
 		System.out.println("ttlValueExpired=" + ttlValueExpired);
 		Assert.assertNull(ttlValueExpired);
 		log.info("redist str key end");
+	}
+	
+	@Test
+	public void listOpsGetAndSet() {
+		String listkey = "list_key";
+		redisTemplate.delete(listkey);
+		redisTemplate.opsForList().leftPush(listkey, RandomStringUtils.randomAlphabetic(6));
+		redisTemplate.opsForList().leftPush(listkey, RandomStringUtils.randomAlphabetic(6));
+		List<String> list = redisTemplate.opsForList().range(listkey, 0, 2);
+		System.out.println(list);
+		Assert.assertEquals(2, list.size());
 	}
 
 }
