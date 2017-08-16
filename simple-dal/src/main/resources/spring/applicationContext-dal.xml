@@ -119,12 +119,22 @@
 		<property name="connectionFactory" ref="jedisConnectionFactory" />
 	</bean>
 
+	<!-- 为了单元测试可以测试Publisher -->
 	<bean id="redisSerializer"
 		class="org.springframework.data.redis.serializer.StringRedisSerializer"></bean>
 
 	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
 		<property name="connectionFactory" ref="jedisConnectionFactory" />
 		<property name="defaultSerializer" ref="redisSerializer" />
+	</bean>
+
+	<bean id="redisMessageListener" class="com.david.dal.pubsub.RedisMessageListener">
+		<property name="redisTemplate" ref="redisTemplate" />
+	</bean>
+
+	<bean id="redisContainer"
+		class="org.springframework.data.redis.listener.RedisMessageListenerContainer">
+		<property name="connectionFactory" ref="jedisConnectionFactory" />
 	</bean>
 
 </beans>

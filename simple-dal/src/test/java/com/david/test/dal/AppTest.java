@@ -1,4 +1,4 @@
-package org.simple.dal;
+package com.david.test.dal;
 
 import java.util.Arrays;
 import java.util.Date;
