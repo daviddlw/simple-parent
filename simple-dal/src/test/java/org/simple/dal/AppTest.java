@@ -1,9 +1,12 @@
 package org.simple.dal;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -30,17 +33,17 @@ public class AppTest {
 	private static final Logger log = LoggerFactory.getLogger(AppTest.class);
 
 	@Autowired
-	private StringRedisTemplate redisTemplate;
+	private StringRedisTemplate stringRedisTemplate;
 
 	@Test
 	public void stringOpsGetAndSet() {
 		String key = "member";
-		redisTemplate.opsForValue().set(key, "david");
-		String value = redisTemplate.opsForValue().get(key);
+		stringRedisTemplate.opsForValue().set(key, "david");
+		String value = stringRedisTemplate.opsForValue().get(key);
 		Assert.assertEquals("david", value);
 		System.out.println(value);
-		redisTemplate.delete(key);
-		String value2 = redisTemplate.opsForValue().get(key);
+		stringRedisTemplate.delete(key);
+		String value2 = stringRedisTemplate.opsForValue().get(key);
 		Assert.assertNull(value2);
 	}
 
@@ -64,15 +67,15 @@ public class AppTest {
 		log.info("redist str key start");
 		String key = "member_info";
 		MemberInfo memberInfo = getMemberInfo();
-		redisTemplate.opsForValue().set(key, JSON.toJSONString(memberInfo));
-		String value = redisTemplate.opsForValue().get(key);
+		stringRedisTemplate.opsForValue().set(key, JSON.toJSONString(memberInfo));
+		String value = stringRedisTemplate.opsForValue().get(key);
 		MemberInfo resultMemberInfo = JSON.parseObject(value, MemberInfo.class);
 		System.out.println(value);
 		Assert.assertEquals(memberInfo.getMemberNo(), resultMemberInfo.getMemberNo());
 		System.out.println("set value for ttl");
 		String newkey = "member_info_new";
-		redisTemplate.opsForValue().set(newkey, JSON.toJSONString(memberInfo), 1, TimeUnit.SECONDS);
-		String ttlValue = redisTemplate.opsForValue().get(newkey);
+		stringRedisTemplate.opsForValue().set(newkey, JSON.toJSONString(memberInfo), 1, TimeUnit.SECONDS);
+		String ttlValue = stringRedisTemplate.opsForValue().get(newkey);
 		System.out.println("ttlValue=" + ttlValue);
 		Assert.assertNotNull(ttlValue);
 		try {
@@ -80,7 +83,7 @@ public class AppTest {
 		} catch (InterruptedException ex) {
 			log.error(ex.getMessage(), ex);
 		}
-		String ttlValueExpired = redisTemplate.opsForValue().get(newkey);
+		String ttlValueExpired = stringRedisTemplate.opsForValue().get(newkey);
 		System.out.println("ttlValueExpired=" + ttlValueExpired);
 		Assert.assertNull(ttlValueExpired);
 		log.info("redist str key end");
@@ -89,16 +92,30 @@ public class AppTest {
 	@Test
 	public void listOpsGetAndSet() {
 		String listkey = "list_key";
-		redisTemplate.delete(listkey);
-		redisTemplate.opsForList().leftPush(listkey, RandomStringUtils.randomAlphabetic(6));
-		redisTemplate.opsForList().leftPush(listkey, RandomStringUtils.randomAlphabetic(6));
-		List<String> list = redisTemplate.opsForList().range(listkey, 0, 2);
+		stringRedisTemplate.delete(listkey);
+		stringRedisTemplate.opsForList().leftPush(listkey, RandomStringUtils.randomAlphabetic(6));
+		stringRedisTemplate.opsForList().leftPush(listkey, RandomStringUtils.randomAlphabetic(6));
+		List<String> list = stringRedisTemplate.opsForList().range(listkey, 0, 2);
 		System.out.println(list);
 		Assert.assertEquals(2, list.size());
 	}
 
 	@Test
 	public void zSetOpsGetAndSet() {
+		String keyset = "zset_key";
+		Set<String> hashSet = new HashSet<>(Arrays.asList(new String[] { "daviddai", "zhangsan", "abc" }));
+		for (String item : hashSet) {
+			double weight = RandomUtils.nextDouble(0, 100);
+			System.out.println("item=" + item + ", weight=" + weight);
+			stringRedisTemplate.opsForZSet().add(keyset, item, weight);
+		}
+		
+		Set<String> rangeSets = stringRedisTemplate.opsForZSet().range(keyset, 0, hashSet.size());
+		System.out.println(rangeSets);
+		Set<String> rangeScoreSets= stringRedisTemplate.opsForZSet().rangeByScore(keyset, 0, 100);
+		System.out.println(rangeScoreSets);
+		Set<String> reverseRangeSets = stringRedisTemplate.opsForZSet().reverseRange(keyset, 0, hashSet.size());
+		System.out.println(reverseRangeSets);
 
 	}
 
@@ -112,22 +129,22 @@ public class AppTest {
 		System.out.println(resultMap);
 		System.out.println(resultMap.size());
 		for (Entry<Object, Object> kv : resultMap.entrySet()) {
-			redisTemplate.opsForHash().put(key, kv.getKey(), String.valueOf(kv.getValue()));
+			stringRedisTemplate.opsForHash().put(key, kv.getKey(), String.valueOf(kv.getValue()));
 		}
-		String redisMemberNo = (String) redisTemplate.opsForHash().get(key, "memberNo");
-		String redisRealName = (String) redisTemplate.opsForHash().get(key, "realname");
-		Integer redisAge = NumberUtils.toInt((String) redisTemplate.opsForHash().get(key, "age"), 0);
+		String redisMemberNo = (String) stringRedisTemplate.opsForHash().get(key, "memberNo");
+		String redisRealName = (String) stringRedisTemplate.opsForHash().get(key, "realname");
+		Integer redisAge = NumberUtils.toInt((String) stringRedisTemplate.opsForHash().get(key, "age"), 0);
 		System.out.println("redisMemberNo=" + redisMemberNo);
 		System.out.println("redisRealName=" + redisRealName);
 		System.out.println("redisAge=" + redisAge);
 		Assert.assertEquals(redisMemberNo, memberInfo.getMemberNo());
 		System.out.println("modify redis hash object value");
 		String modifyValue = "12345678";
-		redisTemplate.opsForHash().put(key, "memberNo", modifyValue);
-		String redisMemberNoRs = (String) redisTemplate.opsForHash().get(key, "memberNo");
+		stringRedisTemplate.opsForHash().put(key, "memberNo", modifyValue);
+		String redisMemberNoRs = (String) stringRedisTemplate.opsForHash().get(key, "memberNo");
 		System.out.println(redisMemberNoRs);
 		Assert.assertEquals(modifyValue, redisMemberNoRs);
-		
+
 	}
 
 }
