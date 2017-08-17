@@ -116,17 +116,22 @@
 		<property name="password" value="${redis.password}" />
 	</bean>
 
+	<bean id="keySerializer"
+		class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+
+	<bean id="valueSerializer"
+		class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+
 	<bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
 		<property name="connectionFactory" ref="jedisConnectionFactory" />
+		<property name="keySerializer" ref="keySerializer" />
+		<property name="valueSerializer" ref="valueSerializer" />
 	</bean>
-
-	<!-- 为了单元测试可以测试Publisher -->
-	<bean id="redisSerializer"
-		class="org.springframework.data.redis.serializer.StringRedisSerializer"></bean>
 
 	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
 		<property name="connectionFactory" ref="jedisConnectionFactory" />
-		<property name="defaultSerializer" ref="redisSerializer" />
+		<property name="keySerializer" ref="keySerializer" />
+		<property name="valueSerializer" ref="valueSerializer" />
 	</bean>
 
 	<bean id="redisMessageListener" class="com.david.dal.pubsub.RedisMessageListener">

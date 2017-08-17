@@ -19,12 +19,15 @@ import org.simple.util.JUnit4ClassRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.david.dal.model.MemberInfo;
+import com.david.dal.model.User;
 
 @RunWith(JUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:spring/applicationContext-dal.xml" })
@@ -35,8 +38,24 @@ public class AppTest {
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
 
+	@Autowired
+	private RedisTemplate<String, User> redisTemplate;
+
 	@Test
-	public void stringOpsGetAndSet() {
+	public void stringOpsGetAndSetObjTest() {
+		String key = "user_key";
+		User user = new User();
+		user.setId(RandomUtils.nextInt(0, 99));
+		user.setName(RandomStringUtils.randomAlphabetic(8));
+		ValueOperations<String, User> valueOperations = redisTemplate.opsForValue();
+		valueOperations.set(key, user);
+		User resultUser = valueOperations.get(key);
+		System.out.println(resultUser);
+		Assert.assertEquals(user.getId(), resultUser.getId());
+	}
+
+	@Test
+	public void stringOpsGetAndSetStrTest() {
 		String key = "member";
 		stringRedisTemplate.opsForValue().set(key, "david");
 		String value = stringRedisTemplate.opsForValue().get(key);
@@ -100,19 +119,29 @@ public class AppTest {
 		Assert.assertEquals(2, list.size());
 	}
 
+	/**
+	 * 记录异常信息： support.SerializationFailedException: Failed to deserialize
+	 * payload. Is the byte array a result of corresponding serialization for
+	 * DefaultDeserializer?; nested exception is java.io.InvalidClassException
+	 * 使用org.springframework.data.redis.core.RedisTemplate从Redis中读取数据时，报上面的错。
+	 * 
+	 * 原因，缓存是昨天，缓存中用到的Bean今天改过并重新部署，这样Redis中存放的bean和今天的项目中Bean已经不是同一个了。
+	 * 解决方式删除这个key重新set
+	 */
 	@Test
 	public void zSetOpsGetAndSet() {
 		String keyset = "zset_key";
+		stringRedisTemplate.delete(keyset);
 		Set<String> hashSet = new HashSet<>(Arrays.asList(new String[] { "daviddai", "zhangsan", "abc" }));
 		for (String item : hashSet) {
 			double weight = RandomUtils.nextDouble(0, 100);
 			System.out.println("item=" + item + ", weight=" + weight);
 			stringRedisTemplate.opsForZSet().add(keyset, item, weight);
 		}
-		
+
 		Set<String> rangeSets = stringRedisTemplate.opsForZSet().range(keyset, 0, hashSet.size());
 		System.out.println(rangeSets);
-		Set<String> rangeScoreSets= stringRedisTemplate.opsForZSet().rangeByScore(keyset, 0, 100);
+		Set<String> rangeScoreSets = stringRedisTemplate.opsForZSet().rangeByScore(keyset, 0, 100);
 		System.out.println(rangeScoreSets);
 		Set<String> reverseRangeSets = stringRedisTemplate.opsForZSet().reverseRange(keyset, 0, hashSet.size());
 		System.out.println(reverseRangeSets);
