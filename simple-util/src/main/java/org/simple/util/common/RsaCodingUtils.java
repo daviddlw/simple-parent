@@ -12,11 +12,12 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 public final class RsaCodingUtils {
 	static final Log log = LogFactory.getLog(RsaCodingUtils.class);
@@ -37,12 +38,28 @@ public final class RsaCodingUtils {
 		return encryptByPublicKey(src, publicKey);
 	}
 
+	public static String encryptByPubCerTextForBase64(String src, String pubKeyText) {
+		PublicKey publicKey = RsaReadUtils.getPublicKeyByText(pubKeyText);
+		if (publicKey == null) {
+			return null;
+		}
+		return encryptByPublicKeyForBase64(src, publicKey);
+	}
+
 	public static String encryptByPublicKey(String src, PublicKey publicKey) {
 		byte[] destBytes = rsaByPublicKey(src.getBytes(Charset.forName(Constants.UTF_8)), publicKey, 1);
 		if (destBytes == null) {
 			return null;
 		}
 		return StringUtil.byte2Hex(destBytes);
+	}
+
+	public static String encryptByPublicKeyForBase64(String src, PublicKey publicKey) {
+		byte[] destBytes = rsaByPublicKey(src.getBytes(Charset.forName(Constants.UTF_8)), publicKey, 1);
+		if (destBytes == null) {
+			return null;
+		}
+		return Base64.encodeBase64String(destBytes);
 	}
 
 	public static String decryptByPriPfxFile(String src, String pfxPath, String priKeyPass) {
@@ -84,11 +101,11 @@ public final class RsaCodingUtils {
 		}
 		return null;
 	}
-	
+
 	public static String decryptByPrivateKey(String src, String privateKey) {
 		try {
 			PrivateKey priKey = RsaReadUtils.getPrivateKey(privateKey);
-			return decryptByPrivateKey(src, privateKey);
+			return decryptByPrivateKey(src, priKey);
 		} catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
 			return null;
@@ -120,7 +137,15 @@ public final class RsaCodingUtils {
 		return StringUtil.byte2Hex(destBytes);
 	}
 
-	public static String encryptByPrivateKey(String src, String privateKey) {
+	public static String encryptByPrivateKeyForBase64(String src, PrivateKey privateKey) {
+		byte[] destBytes = rsaByPrivateKey(src.getBytes(Charset.forName(Constants.UTF_8)), privateKey, 1);
+		if (destBytes == null) {
+			return null;
+		}
+		return Base64.encodeBase64String(destBytes);
+	}
+
+	public static String encryptByPrivateKeyText(String src, String privateKey) {
 		PrivateKey piKey;
 		try {
 			piKey = RsaReadUtils.getPrivateKey(privateKey);
@@ -129,7 +154,17 @@ public final class RsaCodingUtils {
 			log.error(e.getMessage(), e);
 			return null;
 		}
+	}
 
+	public static String encryptByPrivateKeyTextForBase64(String src, String privateKey) {
+		PrivateKey piKey;
+		try {
+			piKey = RsaReadUtils.getPrivateKey(privateKey);
+			return encryptByPrivateKeyForBase64(src, piKey);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return null;
+		}
 	}
 
 	public static String decryptByPubCerFile(String src, String pubCerPath) {

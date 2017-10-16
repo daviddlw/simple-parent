@@ -27,10 +27,11 @@ import java.util.Enumeration;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 public final class RsaReadUtils {
 	private static final String PKCS12 = "PKCS12";
-	private static final String PKCS10 = "PKCS10";
+
 	static final Log log = LogFactory.getLog(RsaReadUtils.class);
 
 	public static PublicKey getPublicKeyFromFile(String pubCerPath) {
@@ -129,14 +130,14 @@ public final class RsaReadUtils {
 	 *
 	 * @param key
 	 *            密钥字符串（经过base64编码）
-	 * @throws UnsupportedEncodingException 
-	 * @throws NoSuchAlgorithmException 
-	 * @throws InvalidKeySpecException 
+	 * @throws UnsupportedEncodingException
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeySpecException
 	 * @throws Exception
 	 */
 	public static PublicKey getPublicKey(String key) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeySpecException {
 		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(key.getBytes(Constants.UTF_8)));
-		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+		KeyFactory keyFactory = KeyFactory.getInstance("RSA", new BouncyCastleProvider());
 		PublicKey publicKey = keyFactory.generatePublic(keySpec);
 		return publicKey;
 	}
@@ -146,14 +147,14 @@ public final class RsaReadUtils {
 	 *
 	 * @param key
 	 *            密钥字符串（经过base64编码）
-	 * @throws UnsupportedEncodingException 
-	 * @throws NoSuchAlgorithmException 
-	 * @throws InvalidKeySpecException 
+	 * @throws UnsupportedEncodingException
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeySpecException
 	 * @throws Exception
 	 */
 	public static PrivateKey getPrivateKey(String key) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeySpecException {
 		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(key.getBytes(Constants.UTF_8)));
-		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+		KeyFactory keyFactory = KeyFactory.getInstance("RSA", new BouncyCastleProvider());
 		PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
 		return privateKey;
 	}
