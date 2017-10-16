@@ -2,24 +2,18 @@ package org.simple.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.simple.util.common.AesUtils;
-import org.simple.util.common.Constants;
 import org.simple.util.common.HttpUtils;
 import org.simple.util.common.RsaCodingUtils;
 import org.simple.util.common.RsaUtils;
-
-import freemarker.template.SimpleDate;
 
 public class EpccTest {
 
