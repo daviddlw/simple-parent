@@ -28,6 +28,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.simple.util.constants.Constants;
 
 public final class RsaReadUtils {
 	private static final String PKCS12 = "PKCS12";

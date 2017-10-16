@@ -1,4 +1,4 @@
-package org.simple.util;
+package org.simple.util.exception;
 
 public class SimpleException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package org.simple.util.common;
+package org.simple.util.constants;
 
 /**
  * Created by albertc on 2015/12/21.

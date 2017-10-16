@@ -24,6 +24,7 @@ import javax.crypto.NoSuchPaddingException;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.ArrayUtils;
+import org.simple.util.constants.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

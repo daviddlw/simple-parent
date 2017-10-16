@@ -5,14 +5,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
-import org.simple.util.SimpleException;
+import org.simple.util.constants.Constants;
+import org.simple.util.exception.SimpleException;
 
 /**
  * 
  * @author dailiwei
  *
  */
-public class StringUtil extends StringUtils {
+public class EpccStringUtils extends StringUtils {
 
 	public static final String EMPTY = "";
 

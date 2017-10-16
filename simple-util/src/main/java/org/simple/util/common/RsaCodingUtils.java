@@ -17,6 +17,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.simple.util.constants.Constants;
 
 public final class RsaCodingUtils {
 	static final Log log = LogFactory.getLog(RsaCodingUtils.class);
@@ -50,7 +51,7 @@ public final class RsaCodingUtils {
 		if (destBytes == null) {
 			return null;
 		}
-		return StringUtil.byte2Hex(destBytes);
+		return EpccStringUtils.byte2Hex(destBytes);
 	}
 
 	public static String encryptByPublicKeyForBase64(String src, PublicKey publicKey) {
@@ -88,7 +89,7 @@ public final class RsaCodingUtils {
 			return null;
 		}
 		try {
-			byte[] destBytes = rsaByPrivateKey(StringUtil.hex2Bytes(src), privateKey, 2);
+			byte[] destBytes = rsaByPrivateKey(EpccStringUtils.hex2Bytes(src), privateKey, 2);
 			if (destBytes == null) {
 				return null;
 			}
@@ -133,7 +134,7 @@ public final class RsaCodingUtils {
 		if (destBytes == null) {
 			return null;
 		}
-		return StringUtil.byte2Hex(destBytes);
+		return EpccStringUtils.byte2Hex(destBytes);
 	}
 
 	public static String encryptByPrivateKeyForBase64(String src, PrivateKey privateKey) {
@@ -184,7 +185,7 @@ public final class RsaCodingUtils {
 
 	public static String decryptByPublicKey(String src, PublicKey publicKey) {
 		try {
-			byte[] destBytes = rsaByPublicKey(StringUtil.hex2Bytes(src), publicKey, 2);
+			byte[] destBytes = rsaByPublicKey(EpccStringUtils.hex2Bytes(src), publicKey, 2);
 			if (destBytes == null) {
 				return null;
 			}
