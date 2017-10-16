@@ -51,10 +51,21 @@
 		<bcprov.version>1.52</bcprov.version>
 		<httpclient.version>4.5.3</httpclient.version>
 		<common-io.version>2.5</common-io.version>
+		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 	</properties>
 
 	<dependencies>
 		<!-- ============ thirty parties ================= -->
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${commons-beanutils.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-betwixt</groupId>
+			<artifactId>commons-betwixt</artifactId>
+			<version>${betwixt.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -79,11 +90,6 @@
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>${commons-codec.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-betwixt</groupId>
-			<artifactId>commons-betwixt</artifactId>
-			<version>${betwixt.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.dom4j</groupId>

@@ -1,5 +1,6 @@
 package org.simple.util;
 
+import java.beans.IntrospectionException;
 import java.io.File;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -8,12 +9,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.betwixt.XMLUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.simple.util.common.AesUtils;
 import org.simple.util.common.HttpUtils;
 import org.simple.util.common.RsaCodingUtils;
 import org.simple.util.common.RsaUtils;
+import org.simple.util.common.XmlUtils;
+import org.simple.util.common.dto.PersonBean;
+import org.xml.sax.SAXException;
 
 public class EpccTest {
 
@@ -54,6 +59,16 @@ public class EpccTest {
 		String url = "https://quimf.hdfax.com/eff-uim-front-web/authorize/get_auth_code.form";
 		String result = HttpUtils.httpPost(url, formParams);
 		System.out.println(result);
+	}
+	
+	@Test
+	public void xmlUtilsTest() throws IOException, SAXException, IntrospectionException {
+		PersonBean personBean = new PersonBean("戴维", 28);
+		String xmlResult = XmlUtils.javaBeanToXml(personBean);
+		System.out.println(xmlResult);
+		
+		PersonBean personBean2 = XmlUtils.xmlToJavaBean(xmlResult, PersonBean.class.getSimpleName(), PersonBean.class);
+		System.out.println(personBean2);
 	}
 
 	/**
