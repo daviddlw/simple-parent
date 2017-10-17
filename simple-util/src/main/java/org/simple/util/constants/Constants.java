@@ -14,4 +14,5 @@ public class Constants {
 	public final static String CONTENT_TYPE_JSON = "application/json";
 	public static final String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
 	public static final String YYYYMMDDHHMMSS = "yyyyMMddhhmmss";
+	public static final String YYYYMMDD = "yyyyMMdd";
 }

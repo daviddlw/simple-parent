@@ -1,5 +1,6 @@
 package org.simple.util.common;
 
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,6 +9,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import java.nio.charset.Charset;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 
@@ -36,7 +38,7 @@ public class AesUtils {
 			kg.init(256);// 要生成多少位，只需要修改这里即可128, 192或256
 			SecretKey sk = kg.generateKey();
 			byte[] b = sk.getEncoded();
-			aesKey = byteToHexString(b);
+			aesKey = bytesToHexString(b);
 			System.out.println(aesKey);
 			return aesKey;
 		} catch (NoSuchAlgorithmException e) {
@@ -46,21 +48,20 @@ public class AesUtils {
 		return aesKey;
 	}
 
-	private static String byteToHexString(byte[] bytes) {
-		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < bytes.length; i++) {
-			String strHex = Integer.toHexString(bytes[i]);
-			if (strHex.length() > 3) {
-				sb.append(strHex.substring(6));
-			} else {
-				if (strHex.length() < 2) {
-					sb.append("0" + strHex);
-				} else {
-					sb.append(strHex);
-				}
-			}
+	public static String bytesToHexString(byte[] src) {
+		StringBuilder stringBuilder = new StringBuilder("");
+		if (src == null || src.length <= 0) {
+			return null;
 		}
-		return sb.toString();
+		for (int i = 0; i < src.length; i++) {
+			int v = src[i] & 0xFF;
+			String hv = Integer.toHexString(v);
+			if (hv.length() < 2) {
+				stringBuilder.append(0);
+			}
+			stringBuilder.append(hv);
+		}
+		return stringBuilder.toString();
 	}
 
 	/**
@@ -81,6 +82,21 @@ public class AesUtils {
 			result = cipher.doFinal(str.getBytes("UTF-8"));
 		} catch (Exception e) {
 			logger.error("Aes256Encode error:", e);
+		}
+		return result;
+	}
+
+	public static String Aes256Encode(String str, String aesKey) {
+		String result = "";
+		try {
+			Cipher cipher = Cipher.getInstance(ALGORITHM, "BC");
+			SecretKeySpec keySpec = new SecretKeySpec(aesKey.getBytes(Charset.forName("UTF-8")), "AES"); // 生成加密解密需要的Key
+			cipher.init(Cipher.ENCRYPT_MODE, keySpec);
+			byte[] bytes = cipher.doFinal(str.getBytes("UTF-8"));
+			result = Base64.encodeBase64String(bytes).replaceAll("[\\s*\t\n\r]", "");
+		} catch (Exception e) {
+			logger.error("Aes256Encode error:", e);
+			e.printStackTrace();
 		}
 		return result;
 	}

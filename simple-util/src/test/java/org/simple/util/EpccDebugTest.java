@@ -15,6 +15,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.junit.Assert;
 import org.junit.Test;
 import org.simple.util.common.AesUtils;
+import org.simple.util.common.EpccUtils;
 import org.simple.util.common.HttpUtils;
 import org.simple.util.common.RsaCodingUtils;
 import org.simple.util.common.RsaUtils;
@@ -91,6 +92,11 @@ public class EpccDebugTest {
 		}
 	}
 
+	@Test
+	public void testGenTranSerialNo() {
+		System.out.println(EpccUtils.genTransSerialNo());
+	}
+	
 	/**
 	 * epcc.401.001.01 test case
 	 * 
