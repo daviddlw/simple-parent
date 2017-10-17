@@ -1,4 +1,4 @@
-package org.simple.util.test;
+package org.simple.util.debug;
 
 import java.io.IOException;
 import java.security.KeyFactory;
@@ -101,6 +101,8 @@ public class RSASignatureUtil {
 					.getInstance(SIGN_ALGORITHMS);
 
 			signature.initVerify(pubKey);
+			//去除换行符
+			content = content.replaceAll("\r\n", "");
 			signature.update(content.getBytes(encode));
 
 			boolean bverify = signature.verify(Base64.decodeBase64(sign));
@@ -144,7 +146,7 @@ public class RSASignatureUtil {
 		System.out.println(signString);
 
 		CertInfo certInfo = CertUtil
-				.getX509CertInfo("C:\\Users\\Zhym\\Desktop\\test\\wanglian-rsa.cer");
+				.getX509CertInfo("Q:\\epcc\\wanglian-rsa.cer");
 		String respXml = "<root xmlns=\"namespace_string\"><MsgHeader><SndDt>2017-09-11T15:08:36</SndDt><MsgTp>epcc.402.001.01</MsgTp><IssrId>G4000311000018</IssrId><Drctn>21</Drctn><SignSN>4000068829</SignSN></MsgHeader><MsgBody><InstgId>Z2017211000011</InstgId><CtrlNbInf></CtrlNbInf><SysRtnInf><SysRtnCd>ES000098</SysRtnCd><SysRtnDesc>系统异常</SysRtnDesc><SysRtnTm>2017-09-11T15:08:36</SysRtnTm></SysRtnInf></MsgBody></root>";
 		String respSign = "upo6atXYJpq6hs/THpFKTYTfxthuetW4YCWCrR993fMs10CS3dxYrhWK162RNiS8I6iofbj2bkWigmo2KD0YzszvLHlP9gJtfXsizwe6JFUWKbrpSl94R8cFUyZ4REW78fvoW28l2tL6IaqoiU60K/8QxvzMfkuEgmkUqZvfYs+X3sxEdK2cG/Z/f6Py8MHmyFnhOl4UKN6bjtMz42Rbh5sLN6RXlU0LN8H4ZN5cTyv8seqJOhZFwtR4DjmJoAJwTFuTc62eQNqU7DKhlFeKex1VkKwdX2G4/lyn0rx0IzzYZmD66vAi8b4FzExxZnepPfNDqlVA9852mVrVgDj8Yw==";
 		boolean signCheck = doCheck(respXml, respSign, certInfo.getKey());

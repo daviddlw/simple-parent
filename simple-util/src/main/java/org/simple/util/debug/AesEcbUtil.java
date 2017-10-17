@@ -1,4 +1,4 @@
-package org.simple.util.test;
+package org.simple.util.debug;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;

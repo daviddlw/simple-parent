@@ -1,4 +1,4 @@
-package org.simple.util.test;
+package org.simple.util.debug;
 
 import java.math.BigInteger;
 import java.security.PublicKey;

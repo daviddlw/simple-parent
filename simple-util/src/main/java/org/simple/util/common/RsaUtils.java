@@ -15,7 +15,9 @@ import java.security.PublicKey;
 import java.security.Signature;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -71,6 +73,8 @@ public class RsaUtils {
 	public static boolean vertify(String publicKey, String content, String signStr) throws Exception {
 		Signature signature = Signature.getInstance(algorithm);
 		signature.initVerify(convertPublicKey(publicKey));
+		// 防止待验签的报文里面存有换行符而影响验签结果
+		content = content.replaceAll("\r\n", "");
 		signature.update(content.getBytes(CHARSET));
 		return signature.verify(Base64.decodeBase64(signStr.getBytes(CHARSET)));
 	}
@@ -94,6 +98,7 @@ public class RsaUtils {
 			result = Base64.encodeBase64String(encoded);
 		} catch (Exception e) {
 			logger.error("encryptByPublicKey error:", e);
+			e.printStackTrace();
 		}
 		return result;
 	}
@@ -117,6 +122,7 @@ public class RsaUtils {
 			result = new String(encoded, CHARSET);
 		} catch (Exception e) {
 			logger.error("decryptByPrivateKey error:", e);
+			e.printStackTrace();
 		}
 		return result;
 	}
@@ -128,11 +134,12 @@ public class RsaUtils {
 	}
 
 	public static PublicKey convertPublicKey(String keyStr) throws Exception {
-		CertificateFactory certificateFactory = CertificateFactory.getInstance("X509");
-		Certificate certificate = certificateFactory.generateCertificate(new ByteArrayInputStream(Base64.decodeBase64(keyStr.getBytes(CHARSET))));
-		return certificate.getPublicKey();
+		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+		byte[] encodedKey = Base64.decodeBase64(keyStr);
+		PublicKey pubKey = keyFactory.generatePublic(new X509EncodedKeySpec(encodedKey));
+		return pubKey;
 	}
-	
+
 	public static String encryptByPubCerFile(String pubCerPath, String src) {
 		PublicKey publicKey = RsaReadUtils.getPublicKeyFromFile(pubCerPath);
 		if (publicKey == null) {
@@ -140,7 +147,24 @@ public class RsaUtils {
 		}
 		return encryptByPublicKey(src, publicKey);
 	}
-	
+
+	/**
+	 * 将公钥文件转换成rsa公钥文本
+	 * @param certPath 公钥文件路径
+	 * @return 公钥字符串
+	 */
+	public static String convertCertFileToRsaPublicKey(String certPath) {
+		String result = "";
+		try (FileInputStream fileInputStream = new FileInputStream(certPath)) {
+			CertificateFactory certificateFactory = CertificateFactory.getInstance("X509");
+			X509Certificate x509Certificate = (X509Certificate) certificateFactory.generateCertificate(fileInputStream);
+			result = Base64.encodeBase64String(x509Certificate.getPublicKey().getEncoded());
+		} catch (Exception ex) {
+			logger.error(ex.getMessage(), ex);
+			ex.printStackTrace();
+		}
+		return result;
+	}
 
 	public static String encryptByPublicKey(String src, PublicKey publicKey) {
 		byte[] destBytes = rsaByPublicKey(src.getBytes(Charset.forName(Constants.UTF_8)), publicKey, 1);
@@ -160,8 +184,10 @@ public class RsaUtils {
 			return getPublicKeyByText(new String(reads, Charset.forName(Constants.UTF_8)));
 		} catch (FileNotFoundException e) {
 			logger.error("publicKey does not exist:", e);
+			e.printStackTrace();
 		} catch (IOException e) {
 			logger.error("read privateKey file failed:", e);
+			e.printStackTrace();
 		} finally {
 			if (pubKeyStream != null) {
 				try {
@@ -191,10 +217,11 @@ public class RsaUtils {
 			return certificate.getPublicKey();
 		} catch (Exception e) {
 			logger.error("analysis publicKey content failed:", e);
+			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	public static byte[] rsaByPublicKey(byte[] srcData, PublicKey publicKey, int mode) {
 		try {
 			Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
@@ -209,14 +236,19 @@ public class RsaUtils {
 			return encryptedData;
 		} catch (NoSuchAlgorithmException e) {
 			logger.error("NoSuchAlgorithmException:", e);
+			e.printStackTrace();
 		} catch (NoSuchPaddingException e) {
 			logger.error("NoSuchPaddingException:", e);
+			e.printStackTrace();
 		} catch (IllegalBlockSizeException e) {
 			logger.error("IllegalBlockSizeException:", e);
+			e.printStackTrace();
 		} catch (BadPaddingException e) {
 			logger.error("BadPaddingException:", e);
+			e.printStackTrace();
 		} catch (InvalidKeyException e) {
 			logger.error("InvalidKeyException:", e);
+			e.printStackTrace();
 		}
 		return null;
 	}
