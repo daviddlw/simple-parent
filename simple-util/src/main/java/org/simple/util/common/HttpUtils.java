@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
@@ -26,7 +27,6 @@ import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.ContentType;
-import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -62,8 +62,8 @@ public class HttpUtils {
 
 	static {
 		try {
-			builder = new SSLContextBuilder();
 			// 全部信任 不做身份鉴定
+			builder = new SSLContextBuilder();
 			builder.loadTrustMaterial(null, new TrustStrategy() {
 				@Override
 				public boolean isTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
@@ -109,8 +109,8 @@ public class HttpUtils {
 		return _httpPost(url, null, null, body);
 	}
 
-	public static String httpXmlPost(String url, String body) {
-		return _httpPost(url, null, null, body, Constants.UTF_8, true);
+	public static String httpXmlPost(String url, String body, Map<String, String> headerMap) {
+		return _httpPost(url, headerMap, null, null, body, Constants.UTF_8, true);
 	}
 
 	public static String httpPost(String url, String body, String charSet) {
@@ -167,7 +167,7 @@ public class HttpUtils {
 	}
 
 	private static String _httpPost(String url, Map<String, String> queryParams, Map<String, String> formParams, String body, String charset) {
-		return _httpPost(url, queryParams, formParams, body, charset, false);
+		return _httpPost(url, null, queryParams, formParams, body, charset, false);
 	}
 
 	/**
@@ -183,8 +183,8 @@ public class HttpUtils {
 	 * @param charset
 	 * @return
 	 */
-	private static String _httpPost(String url, Map<String, String> queryParams, Map<String, String> formParams, String body, String charset,
-			boolean contentTypeXML) {
+	private static String _httpPost(String url, Map<String, String> headerMap, Map<String, String> queryParams, Map<String, String> formParams, String body,
+			String charset, boolean contentTypeXML) {
 
 		if (charset == null) {
 			charset = DEFAULT_ENCODING;
@@ -203,9 +203,11 @@ public class HttpUtils {
 			httpPost.setEntity(new UrlEncodedFormEntity(list, Charset.forName(charset)));
 		} else if (body != null) {
 			if (contentTypeXML) {
-				String contentType = "appcliation/xml;charset=utf-8";
-				httpPost.addHeader("Content-Type", contentType);
-				httpPost.setEntity(new InputStreamEntity(IOUtils.toInputStream(body, Charset.forName(Constants.UTF_8))));
+				httpPost.addHeader("Content-Type", "appcliation/xml;charset=utf-8");
+				for (Entry<String, String> headerKv : headerMap.entrySet()) {
+					httpPost.addHeader(headerKv.getKey(), headerKv.getValue());
+				}
+				httpPost.setEntity(new StringEntity(body, Charset.forName(Constants.UTF_8)));
 			} else {
 				httpPost.addHeader("Content-Type", ContentType.APPLICATION_JSON.toString());
 				httpPost.setEntity(new StringEntity(body, Charset.forName(charset)));

@@ -2,6 +2,8 @@ package org.simple.util;
 
 import java.beans.IntrospectionException;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.text.SimpleDateFormat;
@@ -9,7 +11,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.betwixt.XMLUtils;
+import org.apache.commons.codec.binary.Base64;
 import org.junit.Assert;
 import org.junit.Test;
 import org.simple.util.common.AesUtils;
@@ -18,9 +20,12 @@ import org.simple.util.common.RsaCodingUtils;
 import org.simple.util.common.RsaUtils;
 import org.simple.util.common.XmlUtils;
 import org.simple.util.common.dto.PersonBean;
+import org.simple.util.test.RSASignatureUtil;
 import org.xml.sax.SAXException;
 
 public class EpccTest {
+
+	private static final String EPCC_URL = "https://59.151.65.97:443/preSvr";
 
 	/**
 	 * 加解密
@@ -60,19 +65,31 @@ public class EpccTest {
 		String result = HttpUtils.httpPost(url, formParams);
 		System.out.println(result);
 	}
-	
+
 	@Test
 	public void xmlUtilsTest() throws IOException, SAXException, IntrospectionException {
 		PersonBean personBean = new PersonBean("戴维", 28);
 		String xmlResult = XmlUtils.javaBeanToXml(personBean);
 		System.out.println(xmlResult);
-		
+
 		PersonBean personBean2 = XmlUtils.xmlToJavaBean(xmlResult, PersonBean.class.getSimpleName(), PersonBean.class);
 		System.out.println(personBean2);
 	}
 
+	@Test
+	public void jksBase64Test() throws FileNotFoundException, IOException {
+		String priKeyPath = "Q:" + File.separator + "epcc" + File.separator + "server.jks";
+		try (FileInputStream fis = new FileInputStream(new File(priKeyPath))) {
+			byte[] buffer = new byte[fis.available()];
+			fis.read(buffer, 0, buffer.length);
+			String base64Str = Base64.encodeBase64String(buffer);
+			System.out.println(base64Str);
+		}
+	}
+
 	/**
 	 * epcc.401.001.01 test case
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -90,21 +107,21 @@ public class EpccTest {
 		String dgtlEnvlpStr = RsaUtils.encryptByPubCerFile(certPath, envlpStr);
 		System.out.println(dgtlEnvlpStr);
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		String privateKey = "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDaqMfKwPPb54k7p71a9Ua9NqblrRT9scH0WXcuk8YwdOAVO7tFlvf2KyRiHU3TQiTimYqX9OZGCyaS6kftQcKZBJm2rV2pE27S2URUzNcVTBR1xpxQnMG8Q9CzUGeUWbsYP1FFjqOkq+kIBwFqTG42q7let6ldRbRNE9HT8d88AHQJS6BRLflJ7bzGgNmyh6mYf+vYUYBvCdH7g2bo1Z1f5k44O7D/zZn9al6dkXV/zoti4evle1WlPCFLTS5R/5Izi3DTKySafBJ9LJzoLylI91K1tiSUXGIH3zWR9xxeYZoIF1yIgQpLvoyS4nrPhe+2/m2QZfyFK+m27hagIU8xAgMBAAECggEAJlNVCY2+cHnpzOH+x5WcO4f7wuAOgNUKWOjhgfF22IFz0WTx0yW9+pDfRK88N94tFuawqyfKwNYtgay8xLI1CJsM0j8a3orAbwaT+oUY4eu+3lHcjiibsIL2bqeWMCN2Lq7ScO2qcy+KndSUg+w3mS+KQzbP4cBY9PWXXp3TcfGTcxpj3YmowNUfvFS4dAWZQeE1iE7rJls+Nb9If/hN8K9tZUfBGON+2jtZwLM2nRHgCPgkOvJgKGbVauCrZlWUFOSHiBGZR+bfGvQx4942t8WbzqS3eb9X8jXPCjFFWb1DiUAlpmsGKEc1NemWcGhKu1/d/VuWKE0GkyBNccBOjQKBgQDvcdQPkVCfEVWpTgc8VpRTtNhl4j51SIijeA+FAYDVa8NaUfcMml7pjWmKKnFJI94K7eGEJ7vN7EPG52xOU1iYWFq1T+xhLyh0gUz0DrFT9BkrGDpqSn9wRATbbc9Gqdm32WneLCz9We8MSD+LF6RXescdaCjGO03iLBAUcV4tkwKBgQDpxw0mclHbg4t4xd1IY17hvvYM2ORSXtt44d4jCkezfsrPPtRg/SSG5wGcOIlP2sIwYv2SCcZTOLbKoRLyEZLXqK0w0Cx7Imc6jB/p7Gj7mNU/7HQUtwvob+gkQOXPtcPfGGvGMsWm7z1Q4uvwDXzs6EuyXenUE41Vm22yQ35qqwKBgC7V0gf1gZKLnnjOVWX8/WheIFHVbigctvVan5aBk8SrHnwFOlCRxWzjhzhKUvxecqkqnIjwCLEfvKYkUDAF53dtGNkMOA1OXxhizj2SvibQwTeHtq1hwwmflF+jW/7TbE2kzitx8p7fv31kiGFZj4C4+EeNPyR/Jx3NRpvpDOXXAoGBANsqqvBtYsK6a4pZbeBMkQpw3fojaMK0fWuxzXDqVVg5OWfcTn1zNchnUAImmszLmRyF4ZYFJfKli/Eh20IoKZOXZm8J63mxQjgIYG8NHUsq+FnKkvVMupQ6PdenJAx8Ktq/6WJR/S1IwyJO68UM0B7GlRjupKYXgnxMkCX80sqrAoGBAJPq+jvIAsDMpb6VXdpQynXokKbfds2JY5pT5neUI9mccRczCY585NroZKYb5cpxpF3bdXkpYzPY+RFUA3usZUluZHui/Kw/yMDIhm3EwLjH0aFVNg5pgM+6AjWfHFL39wUSsCKLwLiSnZ00JXQalJcm3ejzTX1lOXqtJIgm0G9X";
 		System.out.println(privateKey);
 		StringBuilder requestBodySb = new StringBuilder();
-		requestBodySb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+		requestBodySb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
 		StringBuilder sb = new StringBuilder();
 		sb.append("<root xmlns=\"namespace_string\">");
 		sb.append("<MsgHeader>");
-		sb.append("<SndDt>" + sdf.format(new Date()).replace(" ", "T") + "</SndDt>");
+		sb.append("<SndDt>" + sdf.format(new Date()) + "</SndDt>");
 		sb.append("<MsgTp>epcc.401.001.01</MsgTp>");
 		sb.append("<IssrId>Z2006845000013</IssrId>");
 		sb.append("<Drctn>11</Drctn>");
 		sb.append("<SignSN>4002567531</SignSN>");
-		sb.append("<NcrptnSN>4000068829</NcrptnSN>");
-		sb.append("<DgtlEvnlp>" + dgtlEnvlpStr + "</DgtlEvnlp>");
+		// sb.append("<NcrptnSN>4000068829</NcrptnSN>");
+		// sb.append("<DgtlEvnlp>" + dgtlEnvlpStr + "</DgtlEvnlp>");
 		sb.append("</MsgHeader>");
 		sb.append("<MsgBody>");
 		sb.append("<InstgId>Z2006845000013</InstgId>");
@@ -115,6 +132,7 @@ public class EpccTest {
 		System.out.println(requestXml.length());
 
 		String signStr = RsaUtils.sign(privateKey, requestXml);
+		// String signStr = RSASignatureUtil.sign(requestXml, privateKey);
 		System.out.println(signStr);
 		sb.append("{S:");
 		sb.append(signStr);
@@ -125,7 +143,11 @@ public class EpccTest {
 
 		requestBodySb.append(content);
 		System.out.println("requestBody=" + requestBodySb.toString());
-		String result = HttpUtils.httpXmlPost("https://59.151.65.97:443/preSvr", requestBodySb.toString());
+		Map<String, String> headerMap = new HashMap<>();
+		headerMap.put("MsgTp", "epcc.401.001.01");
+		headerMap.put("OriIssrId", "Z2006845000013");
+		headerMap.put("Connection", "keep-alive");
+		String result = HttpUtils.httpXmlPost(EPCC_URL, requestBodySb.toString(), headerMap);
 		System.out.println(result);
 	}
 
