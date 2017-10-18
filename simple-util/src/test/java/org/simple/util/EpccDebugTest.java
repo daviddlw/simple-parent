@@ -7,30 +7,62 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.simple.util.common.AesUtils;
 import org.simple.util.common.EpccUtils;
 import org.simple.util.common.HttpUtils;
+import org.simple.util.common.JaxbUtils;
 import org.simple.util.common.RsaCodingUtils;
 import org.simple.util.common.RsaUtils;
 import org.simple.util.common.XmlUtils;
-import org.simple.util.common.dto.PersonBean;
+import org.simple.util.common.dto.Person;
+import org.simple.util.common.dto.Province;
+import org.simple.util.common.dto.Role;
 import org.xml.sax.SAXException;
 
 /**
  * 网联用例调试
+ * 
  * @author dailiwei
  *
  */
 public class EpccDebugTest {
 
 	private static final String EPCC_URL = "https://59.151.65.97:443/preSvr";
+
+	/**
+	 * jaxbUtils xml-bean工具类测试
+	 */
+	@Test
+	public void jaxbUtilsTest() {
+		Person person = new Person("张三丰", RandomUtils.nextInt(20, 60));
+		Role role = new Role();
+		role.setName("Administrator");
+		role.setDesc("管理员");
+		person.setRole(role);
+		Province provinceShanghai = new Province("SH", "上海");
+		Province provinceBeijing = new Province("BJ", "北京");
+		List<Province> provinces = Arrays.asList(new Province[] { provinceBeijing, provinceShanghai });
+		person.setSalary(RandomUtils.nextDouble(0, 30000));
+		person.setProvinceList(provinces);
+		person.setCreateTime(new Date());
+
+		String xml = JaxbUtils.toXml(person);
+		System.out.println(xml);
+
+		Person result = JaxbUtils.toBean(xml, Person.class);
+		System.out.println(result);
+		Assert.assertEquals(person.getName(), result.getName());
+	}
 
 	/**
 	 * 加解密
@@ -73,11 +105,11 @@ public class EpccDebugTest {
 
 	@Test
 	public void xmlUtilsTest() throws IOException, SAXException, IntrospectionException {
-		PersonBean personBean = new PersonBean("戴维", 28);
+		Person personBean = new Person("戴维", 28);
 		String xmlResult = XmlUtils.javaBeanToXml(personBean);
 		System.out.println(xmlResult);
 
-		PersonBean personBean2 = XmlUtils.xmlToJavaBean(xmlResult, PersonBean.class.getSimpleName(), PersonBean.class);
+		Person personBean2 = XmlUtils.xmlToJavaBean(xmlResult, Person.class.getSimpleName(), Person.class);
 		System.out.println(personBean2);
 	}
 
@@ -96,7 +128,7 @@ public class EpccDebugTest {
 	public void testGenTranSerialNo() {
 		System.out.println(EpccUtils.genTransSerialNo());
 	}
-	
+
 	/**
 	 * epcc.401.001.01 test case
 	 * 
@@ -163,7 +195,7 @@ public class EpccDebugTest {
 		headerMap.put("Connection", "keep-alive");
 		String result = HttpUtils.httpXmlPost(EPCC_URL, requestBodySb.toString(), headerMap);
 		System.out.println("result=" + result);
-		
+
 		String responseStr = result.substring(result.indexOf("?>") + 2, result.indexOf("{S:"));
 		System.out.println("responseStr=" + responseStr);
 
@@ -172,8 +204,10 @@ public class EpccDebugTest {
 
 		// 验签
 
-//		CertInfo certInfo = CertUtil.getX509CertInfo("Q:\\epcc\\wanglian-rsa.cer");
-//		boolean verifySign = RSASignatureUtil.doCheck(responseStr, responseSignStr, certInfo.getKey(), Constants.UTF_8);
+		// CertInfo certInfo =
+		// CertUtil.getX509CertInfo("Q:\\epcc\\wanglian-rsa.cer");
+		// boolean verifySign = RSASignatureUtil.doCheck(responseStr,
+		// responseSignStr, certInfo.getKey(), Constants.UTF_8);
 		boolean verifySign = RsaUtils.vertify(publicKey, responseStr, responseSignStr);
 		System.out.println("verifySign=" + verifySign);
 	}

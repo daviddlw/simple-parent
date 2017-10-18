@@ -1,7 +1,6 @@
 package org.simple.util;
 
 import java.io.File;
-import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,7 +13,6 @@ import org.simple.util.common.AesUtils;
 import org.simple.util.common.EpccUtils;
 import org.simple.util.common.HttpUtils;
 import org.simple.util.common.RsaUtils;
-import org.simple.util.constants.Constants;
 
 /**
  * 网联用例
@@ -125,16 +123,24 @@ public class EpccCaseTest {
 		identityAuthAndSign("0201", tranSerialNo, "");
 		identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
 	}
+	
+	@Test
+	public void epcc10100101SignRepeatTest() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+	}
 
 	private void identityAuthAndSign(String trxCtgy, String tranSerialNo, String authMsg) throws Exception {
 		// 产生随机aes256bit-32字节长度秘钥
 		String aeskey = RandomStringUtils.randomAlphanumeric(32);
 		System.out.println("aeskey=" + aeskey + ",length=" + aeskey.length());
 
-		String idNo = "421127198509140412";
-		String idName = "张三丰";
-		String cardNo = "6214832130521234";
-		String phoneNo = "15800563768";
+		String idNo = "421127198509140413";
+		String idName = "张三丰1";
+		String cardNo = "6214832130521235";
+		String phoneNo = "15800563769";
 
 		String encryptIdNo = AesUtils.Aes256Encode(idNo, aeskey);
 		String encryptIdName = AesUtils.Aes256Encode(idName, aeskey);

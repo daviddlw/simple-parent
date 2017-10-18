@@ -15,4 +15,5 @@ public class Constants {
 	public static final String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
 	public static final String YYYYMMDDHHMMSS = "yyyyMMddhhmmss";
 	public static final String YYYYMMDD = "yyyyMMdd";
+	public static final String YYYYMMDDTHHMMSS = "yyyy-MM-dd'T'HH:mm:ss";
 }

@@ -51,10 +51,16 @@
 		<httpclient.version>4.5.3</httpclient.version>
 		<common-io.version>2.5</common-io.version>
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
+		<jaxb.version>2.2.12</jaxb.version>
 	</properties>
 
 	<dependencies>
 		<!-- ============ thirty parties ================= -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>${jaxb.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
