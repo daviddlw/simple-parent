@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.simple.util.common.JaxbDateSerializer;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "Person")
+@XmlRootElement(name = "Person", namespace = "name_string")
 @XmlType(propOrder = { "name", "age", "salary", "role", "provinceList", "createTime" })
 public class Person implements Serializable {
 

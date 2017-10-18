@@ -1,6 +1,5 @@
 package org.simple.util;
 
-import java.beans.IntrospectionException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,11 +22,9 @@ import org.simple.util.common.HttpUtils;
 import org.simple.util.common.JaxbUtils;
 import org.simple.util.common.RsaCodingUtils;
 import org.simple.util.common.RsaUtils;
-import org.simple.util.common.XmlUtils;
 import org.simple.util.common.dto.Person;
 import org.simple.util.common.dto.Province;
 import org.simple.util.common.dto.Role;
-import org.xml.sax.SAXException;
 
 /**
  * 网联用例调试
@@ -62,6 +59,8 @@ public class EpccDebugTest {
 		Person result = JaxbUtils.toBean(xml, Person.class);
 		System.out.println(result);
 		Assert.assertEquals(person.getName(), result.getName());
+		
+		System.out.println(JaxbUtils.toXmlNoHeader(person));
 	}
 
 	/**
@@ -101,16 +100,6 @@ public class EpccDebugTest {
 		String url = "https://quimf.hdfax.com/eff-uim-front-web/authorize/get_auth_code.form";
 		String result = HttpUtils.httpPost(url, formParams);
 		System.out.println(result);
-	}
-
-	@Test
-	public void xmlUtilsTest() throws IOException, SAXException, IntrospectionException {
-		Person personBean = new Person("戴维", 28);
-		String xmlResult = XmlUtils.javaBeanToXml(personBean);
-		System.out.println(xmlResult);
-
-		Person personBean2 = XmlUtils.xmlToJavaBean(xmlResult, Person.class.getSimpleName(), Person.class);
-		System.out.println(personBean2);
 	}
 
 	@Test
