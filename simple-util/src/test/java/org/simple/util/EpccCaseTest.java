@@ -116,6 +116,17 @@ public class EpccCaseTest {
 	 */
 	@Test
 	public void epcc10100101Test() throws Exception {
+		identityAuthAndSign("0201", EpccUtils.genTransSerialNo(), RandomStringUtils.randomNumeric(6));
+	}
+	
+	@Test
+	public void epcc10100101SignTest() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+	}
+
+	private void identityAuthAndSign(String trxCtgy, String tranSerialNo, String authMsg) throws Exception {
 		// 产生随机aes256bit-32字节长度秘钥
 		String aeskey = RandomStringUtils.randomAlphanumeric(32);
 		System.out.println("aeskey=" + aeskey + ",length=" + aeskey.length());
@@ -131,13 +142,11 @@ public class EpccCaseTest {
 		String encryptPhone = AesUtils.Aes256Encode(phoneNo, aeskey);
 
 		// 可用该秘钥对敏感信息加密如果没有则不需要加密
-		String envlpStr = String.format("01|%s", AesUtils.bytesToHexString(aeskey.getBytes(Charset.forName(Constants.UTF_8))));
+		String envlpStr = String.format("01|%s", aeskey);
 		System.out.println("envlpStr=" + envlpStr);
 
 		// 使用网联平台公钥对该信封信息进行加密
 		String certPath = "Q:" + File.separator + "epcc" + File.separator + "wanglian-rsa.cer";
-		// String dgtlEnvlpStr = RsaUtils.encryptByPubCerFile(certPath,
-		// envlpStr);
 		String publicKey = RsaUtils.convertCertFileToRsaPublicKey(certPath);
 		System.out.println("publicKey=" + publicKey);
 		String dgtlEnvlpStr = RsaUtils.encryptByPublicKey(publicKey, envlpStr);
@@ -170,21 +179,24 @@ public class EpccCaseTest {
 		sb.append("<MobNo>" + encryptPhone + "</MobNo>");
 		sb.append("</SgnInf>");
 		sb.append("<TrxInf>");
-		sb.append("<TrxCtgy>0201</TrxCtgy>");
-		sb.append("<TrxId>" + EpccUtils.genTransSerialNo() + "</TrxId>");
+		sb.append("<TrxCtgy>" + trxCtgy + "</TrxCtgy>");
+		sb.append("<TrxId>" + tranSerialNo + "</TrxId>");
 		sb.append("<TrxDtTm>" + sdf.format(new Date()) + "</TrxDtTm>");
-		// sb.append("<AuthMsg>" + RandomStringUtils.randomNumeric(6) +
-		// "</AuthMsg>");
-		sb.append("<AuthMsg></AuthMsg>");
+		if ("0201".equals(trxCtgy)) {
+			sb.append("<AuthMsg></AuthMsg>");
+		} else {
+			sb.append("<AuthMsg>" + authMsg + "</AuthMsg>");
+		}
+
 		sb.append("</TrxInf>");
 		sb.append("<InstgInf>");
 		sb.append("<InstgId>Z2006845000013</InstgId>");
 		String paymentAccountNo = RandomStringUtils.randomNumeric(16);
 		System.out.println("paymentAccountNo=" + paymentAccountNo);
 		String encryptPaymentAccountNo = AesUtils.Aes256Encode(paymentAccountNo, aeskey);
-		// String encryptPaymentAccountNo =
-		// AesEcbUtils.encrypt(paymentAccountNo, aeskey, Constants.UTF_8);
-		sb.append("<InstgAcct>" + encryptPaymentAccountNo + "</InstgAcct>");
+		if ("0202".equals(trxCtgy)) {
+			sb.append("<InstgAcct>" + encryptPaymentAccountNo + "</InstgAcct>");
+		}
 		sb.append("</InstgInf>");
 		sb.append("</MsgBody>");
 		sb.append("</root>");
@@ -208,7 +220,7 @@ public class EpccCaseTest {
 		headerMap.put(MSG_TP, "epcc.101.001.01");
 		headerMap.put(ORI_ISSR_ID, "Z2006845000013");
 		headerMap.put(CONNECTION, "keep-alive");
-		String result = HttpUtils.httpXmlPost(EPCC_PROT_551_URL, requestBodySb.toString(), headerMap);
+		String result = HttpUtils.httpXmlPost(EPCC_PROT_443_URL, requestBodySb.toString(), headerMap);
 		System.out.println("result=" + result);
 
 		// 截取返回报文（改成正则）

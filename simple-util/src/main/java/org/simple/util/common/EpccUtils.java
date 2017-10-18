@@ -11,7 +11,7 @@ import org.simple.util.constants.Constants;
 import org.simple.util.constants.ReservationNumber;
 
 public class EpccUtils {
-	private static String ctrlNbfNo = "76";
+	private static String ctrlNbfNo = "77";
 	private static List<String> ctrlNblList = Arrays.asList(new String[] { "0100", "0101", "0102", "0103", "0104", "0105", "0106", "0107", "0108", "0109",
 			"0000", "0001", "0002", "0003", "0004", "0005", "0006", "0007", "0008", "0009" });
 	private static final SimpleDateFormat sdf = new SimpleDateFormat(Constants.YYYYMMDD);
