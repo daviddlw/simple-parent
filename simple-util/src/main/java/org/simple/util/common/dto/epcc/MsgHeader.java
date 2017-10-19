@@ -12,26 +12,32 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.simple.util.common.JaxbDateSerializer;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = { "sndDt", "msgTp", "issrId", "drctn", "signSN" })
+@XmlType(propOrder = { "sndDt", "msgTp", "issrId", "drctn", "signSN", "ncrptnSN", "dgtlEnvlp" })
 public class MsgHeader implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@XmlJavaTypeAdapter(JaxbDateSerializer.class)
-	@XmlElement(name="SndDt")
+	@XmlElement(name = "SndDt")
 	private Date sndDt;
 
-	@XmlElement(name="MsgTp")
+	@XmlElement(name = "MsgTp")
 	private String msgTp;
 
-	@XmlElement(name="IssrId")
+	@XmlElement(name = "IssrId")
 	private String issrId;
 
-	@XmlElement(name="Drctn")
+	@XmlElement(name = "Drctn")
 	private String drctn;
 
-	@XmlElement(name="SignSN")
+	@XmlElement(name = "SignSN")
 	private String signSN;
+
+	@XmlElement(name = "NcrptnSN")
+	private String ncrptnSN;
+
+	@XmlElement(name = "NcrptnSN")
+	private String dgtlEnvlp;
 
 	public Date getSndDt() {
 		return sndDt;
@@ -73,9 +79,26 @@ public class MsgHeader implements Serializable {
 		this.signSN = signSN;
 	}
 
+	public String getNcrptnSN() {
+		return ncrptnSN;
+	}
+
+	public void setNcrptnSN(String ncrptnSN) {
+		this.ncrptnSN = ncrptnSN;
+	}
+
+	public String getDgtlEnvlp() {
+		return dgtlEnvlp;
+	}
+
+	public void setDgtlEnvlp(String dgtlEnvlp) {
+		this.dgtlEnvlp = dgtlEnvlp;
+	}
+
 	@Override
 	public String toString() {
-		return "MsgHeader [sndDt=" + sndDt + ", msgTp=" + msgTp + ", issrId=" + issrId + ", drctn=" + drctn + ", signSN=" + signSN + "]";
+		return "MsgHeader [sndDt=" + sndDt + ", msgTp=" + msgTp + ", issrId=" + issrId + ", drctn=" + drctn + ", signSN=" + signSN + ", ncrptnSN=" + ncrptnSN
+				+ ", dgtlEnvlp=" + dgtlEnvlp + "]";
 	}
 
 }
