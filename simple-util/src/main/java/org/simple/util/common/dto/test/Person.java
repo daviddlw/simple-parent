@@ -1,4 +1,4 @@
-package org.simple.util.common.dto;
+package org.simple.util.common.dto.test;
 
 import java.io.Serializable;
 import java.util.Date;

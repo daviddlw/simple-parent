@@ -22,9 +22,10 @@ import org.simple.util.common.HttpUtils;
 import org.simple.util.common.JaxbUtils;
 import org.simple.util.common.RsaCodingUtils;
 import org.simple.util.common.RsaUtils;
-import org.simple.util.common.dto.Person;
-import org.simple.util.common.dto.Province;
-import org.simple.util.common.dto.Role;
+import org.simple.util.common.dto.test.ChildPerson;
+import org.simple.util.common.dto.test.Person;
+import org.simple.util.common.dto.test.Province;
+import org.simple.util.common.dto.test.Role;
 
 /**
  * 网联用例调试
@@ -34,7 +35,18 @@ import org.simple.util.common.dto.Role;
  */
 public class EpccDebugTest {
 
-	private static final String EPCC_URL = "https://59.151.65.97:443/preSvr";
+	private static final String Z2006845000013 = "Z2006845000013";
+	private static final String EPCC_401_001_01 = "epcc.401.001.01";
+	private static final String CONNECTION = "Connection";
+	private static final String ORI_ISSR_ID = "OriIssrId";
+	private static final String MSG_TP = "MsgTp";
+	private static final String EPCC_PROT_443_URL = "https://59.151.65.97:443/preSvr";
+	@SuppressWarnings("unused")
+	private static final String EPCC_PROT_551_URL = "https://59.151.65.97:551/preSvr";
+
+	// 加密私钥
+	private static String privateKey = "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDaqMfKwPPb54k7p71a9Ua9NqblrRT9scH0WXcuk8YwdOAVO7tFlvf2KyRiHU3TQiTimYqX9OZGCyaS6kftQcKZBJm2rV2pE27S2URUzNcVTBR1xpxQnMG8Q9CzUGeUWbsYP1FFjqOkq+kIBwFqTG42q7let6ldRbRNE9HT8d88AHQJS6BRLflJ7bzGgNmyh6mYf+vYUYBvCdH7g2bo1Z1f5k44O7D/zZn9al6dkXV/zoti4evle1WlPCFLTS5R/5Izi3DTKySafBJ9LJzoLylI91K1tiSUXGIH3zWR9xxeYZoIF1yIgQpLvoyS4nrPhe+2/m2QZfyFK+m27hagIU8xAgMBAAECggEAJlNVCY2+cHnpzOH+x5WcO4f7wuAOgNUKWOjhgfF22IFz0WTx0yW9+pDfRK88N94tFuawqyfKwNYtgay8xLI1CJsM0j8a3orAbwaT+oUY4eu+3lHcjiibsIL2bqeWMCN2Lq7ScO2qcy+KndSUg+w3mS+KQzbP4cBY9PWXXp3TcfGTcxpj3YmowNUfvFS4dAWZQeE1iE7rJls+Nb9If/hN8K9tZUfBGON+2jtZwLM2nRHgCPgkOvJgKGbVauCrZlWUFOSHiBGZR+bfGvQx4942t8WbzqS3eb9X8jXPCjFFWb1DiUAlpmsGKEc1NemWcGhKu1/d/VuWKE0GkyBNccBOjQKBgQDvcdQPkVCfEVWpTgc8VpRTtNhl4j51SIijeA+FAYDVa8NaUfcMml7pjWmKKnFJI94K7eGEJ7vN7EPG52xOU1iYWFq1T+xhLyh0gUz0DrFT9BkrGDpqSn9wRATbbc9Gqdm32WneLCz9We8MSD+LF6RXescdaCjGO03iLBAUcV4tkwKBgQDpxw0mclHbg4t4xd1IY17hvvYM2ORSXtt44d4jCkezfsrPPtRg/SSG5wGcOIlP2sIwYv2SCcZTOLbKoRLyEZLXqK0w0Cx7Imc6jB/p7Gj7mNU/7HQUtwvob+gkQOXPtcPfGGvGMsWm7z1Q4uvwDXzs6EuyXenUE41Vm22yQ35qqwKBgC7V0gf1gZKLnnjOVWX8/WheIFHVbigctvVan5aBk8SrHnwFOlCRxWzjhzhKUvxecqkqnIjwCLEfvKYkUDAF53dtGNkMOA1OXxhizj2SvibQwTeHtq1hwwmflF+jW/7TbE2kzitx8p7fv31kiGFZj4C4+EeNPyR/Jx3NRpvpDOXXAoGBANsqqvBtYsK6a4pZbeBMkQpw3fojaMK0fWuxzXDqVVg5OWfcTn1zNchnUAImmszLmRyF4ZYFJfKli/Eh20IoKZOXZm8J63mxQjgIYG8NHUsq+FnKkvVMupQ6PdenJAx8Ktq/6WJR/S1IwyJO68UM0B7GlRjupKYXgnxMkCX80sqrAoGBAJPq+jvIAsDMpb6VXdpQynXokKbfds2JY5pT5neUI9mccRczCY585NroZKYb5cpxpF3bdXkpYzPY+RFUA3usZUluZHui/Kw/yMDIhm3EwLjH0aFVNg5pgM+6AjWfHFL39wUSsCKLwLiSnZ00JXQalJcm3ejzTX1lOXqtJIgm0G9X";
+	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
 	/**
 	 * jaxbUtils xml-bean工具类测试
@@ -59,7 +71,32 @@ public class EpccDebugTest {
 		Person result = JaxbUtils.toBean(xml, Person.class);
 		System.out.println(result);
 		Assert.assertEquals(person.getName(), result.getName());
-		
+
+		System.out.println(JaxbUtils.toXmlNoHeader(person));
+	}
+
+	@Test
+	public void jaxbUtilsV2Test() {
+		ChildPerson person = new ChildPerson("张三丰", RandomUtils.nextInt(20, 60));
+		person.setChildName("张三丰孩子");
+		Role role = new Role();
+		role.setName("Administrator");
+		role.setDesc("管理员");
+		person.setRole(role);
+		Province provinceShanghai = new Province("SH", "上海");
+		Province provinceBeijing = new Province("BJ", "北京");
+		List<Province> provinces = Arrays.asList(new Province[] { provinceBeijing, provinceShanghai });
+		person.setSalary(RandomUtils.nextDouble(0, 30000));
+		person.setProvinceList(provinces);
+		person.setCreateTime(new Date());
+
+		String xml = JaxbUtils.toXml(person);
+		System.out.println(xml);
+
+		Person result = JaxbUtils.toBean(xml, ChildPerson.class);
+		System.out.println(result);
+		Assert.assertEquals(person.getName(), result.getName());
+
 		System.out.println(JaxbUtils.toXmlNoHeader(person));
 	}
 
@@ -119,12 +156,12 @@ public class EpccDebugTest {
 	}
 
 	/**
-	 * epcc.401.001.01 test case
+	 * epcc.401.001.01流水号6位控制位请求
 	 * 
 	 * @throws Exception
 	 */
 	@Test
-	public void epcc4100101Test() throws Exception {
+	public void epcc40100101Test() throws Exception {
 		// 产生随机aes256秘钥
 		String aeskey = AesUtils.genAes256Key();
 		System.out.println("aeskey=" + aeskey + ",length=" + aeskey.length());
@@ -137,16 +174,12 @@ public class EpccDebugTest {
 		String certPath = "Q:" + File.separator + "epcc" + File.separator + "wanglian-rsa.cer";
 		String publicKey = RsaUtils.convertCertFileToRsaPublicKey(certPath);
 		System.out.println("publicKey=" + publicKey);
-		// String dgtlEnvlpStr = RsaUtils.encryptByPubCerFile(certPath,
-		// envlpStr);
-		String dgtlEnvlpStr2 = RsaUtils.encryptByPublicKey(publicKey, envlpStr);
-		// System.out.println(dgtlEnvlpStr);
-		System.out.println(dgtlEnvlpStr2);
+		String dgtlEnvlpStr = RsaUtils.encryptByPublicKey(publicKey, envlpStr);
+		System.out.println("dgtlEnvlpStr=" + dgtlEnvlpStr);
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		String privateKey = "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDaqMfKwPPb54k7p71a9Ua9NqblrRT9scH0WXcuk8YwdOAVO7tFlvf2KyRiHU3TQiTimYqX9OZGCyaS6kftQcKZBJm2rV2pE27S2URUzNcVTBR1xpxQnMG8Q9CzUGeUWbsYP1FFjqOkq+kIBwFqTG42q7let6ldRbRNE9HT8d88AHQJS6BRLflJ7bzGgNmyh6mYf+vYUYBvCdH7g2bo1Z1f5k44O7D/zZn9al6dkXV/zoti4evle1WlPCFLTS5R/5Izi3DTKySafBJ9LJzoLylI91K1tiSUXGIH3zWR9xxeYZoIF1yIgQpLvoyS4nrPhe+2/m2QZfyFK+m27hagIU8xAgMBAAECggEAJlNVCY2+cHnpzOH+x5WcO4f7wuAOgNUKWOjhgfF22IFz0WTx0yW9+pDfRK88N94tFuawqyfKwNYtgay8xLI1CJsM0j8a3orAbwaT+oUY4eu+3lHcjiibsIL2bqeWMCN2Lq7ScO2qcy+KndSUg+w3mS+KQzbP4cBY9PWXXp3TcfGTcxpj3YmowNUfvFS4dAWZQeE1iE7rJls+Nb9If/hN8K9tZUfBGON+2jtZwLM2nRHgCPgkOvJgKGbVauCrZlWUFOSHiBGZR+bfGvQx4942t8WbzqS3eb9X8jXPCjFFWb1DiUAlpmsGKEc1NemWcGhKu1/d/VuWKE0GkyBNccBOjQKBgQDvcdQPkVCfEVWpTgc8VpRTtNhl4j51SIijeA+FAYDVa8NaUfcMml7pjWmKKnFJI94K7eGEJ7vN7EPG52xOU1iYWFq1T+xhLyh0gUz0DrFT9BkrGDpqSn9wRATbbc9Gqdm32WneLCz9We8MSD+LF6RXescdaCjGO03iLBAUcV4tkwKBgQDpxw0mclHbg4t4xd1IY17hvvYM2ORSXtt44d4jCkezfsrPPtRg/SSG5wGcOIlP2sIwYv2SCcZTOLbKoRLyEZLXqK0w0Cx7Imc6jB/p7Gj7mNU/7HQUtwvob+gkQOXPtcPfGGvGMsWm7z1Q4uvwDXzs6EuyXenUE41Vm22yQ35qqwKBgC7V0gf1gZKLnnjOVWX8/WheIFHVbigctvVan5aBk8SrHnwFOlCRxWzjhzhKUvxecqkqnIjwCLEfvKYkUDAF53dtGNkMOA1OXxhizj2SvibQwTeHtq1hwwmflF+jW/7TbE2kzitx8p7fv31kiGFZj4C4+EeNPyR/Jx3NRpvpDOXXAoGBANsqqvBtYsK6a4pZbeBMkQpw3fojaMK0fWuxzXDqVVg5OWfcTn1zNchnUAImmszLmRyF4ZYFJfKli/Eh20IoKZOXZm8J63mxQjgIYG8NHUsq+FnKkvVMupQ6PdenJAx8Ktq/6WJR/S1IwyJO68UM0B7GlRjupKYXgnxMkCX80sqrAoGBAJPq+jvIAsDMpb6VXdpQynXokKbfds2JY5pT5neUI9mccRczCY585NroZKYb5cpxpF3bdXkpYzPY+RFUA3usZUluZHui/Kw/yMDIhm3EwLjH0aFVNg5pgM+6AjWfHFL39wUSsCKLwLiSnZ00JXQalJcm3ejzTX1lOXqtJIgm0G9X";
 		System.out.println("privateKey=" + privateKey);
 		StringBuilder requestBodySb = new StringBuilder();
+
 		requestBodySb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
 		StringBuilder sb = new StringBuilder();
 		sb.append("<root xmlns=\"namespace_string\">");
@@ -157,7 +190,7 @@ public class EpccDebugTest {
 		sb.append("<Drctn>11</Drctn>");
 		sb.append("<SignSN>4002567531</SignSN>");
 		// sb.append("<NcrptnSN>4000068829</NcrptnSN>");
-		// sb.append("<DgtlEvnlp>" + dgtlEnvlpStr2 + "</DgtlEvnlp>");
+		// sb.append("<DgtlEnvlp>" + dgtlEnvlpStr + "</DgtlEnvlp>");
 		sb.append("</MsgHeader>");
 		sb.append("<MsgBody>");
 		sb.append("<InstgId>Z2006845000013</InstgId>");
@@ -179,26 +212,24 @@ public class EpccDebugTest {
 		requestBodySb.append(content);
 		System.out.println("requestBody=" + requestBodySb.toString());
 		Map<String, String> headerMap = new HashMap<>();
-		headerMap.put("MsgTp", "epcc.401.001.01");
-		headerMap.put("OriIssrId", "Z2006845000013");
-		headerMap.put("Connection", "keep-alive");
-		String result = HttpUtils.httpXmlPost(EPCC_URL, requestBodySb.toString(), headerMap);
+		headerMap.put(MSG_TP, EPCC_401_001_01);
+		headerMap.put(ORI_ISSR_ID, Z2006845000013);
+		headerMap.put(CONNECTION, "keep-alive");
+		String result = HttpUtils.httpXmlPost(EPCC_PROT_443_URL, requestBodySb.toString(), headerMap);
 		System.out.println("result=" + result);
 
+		// 截取返回报文（改成正则）
 		String responseStr = result.substring(result.indexOf("?>") + 2, result.indexOf("{S:"));
 		System.out.println("responseStr=" + responseStr);
 
+		// 截取签名串（改成正则）
 		String responseSignStr = result.substring(result.indexOf("{") + 3, result.indexOf("}"));
 		System.out.println("responseSignStr=" + responseSignStr);
 
 		// 验签
-
-		// CertInfo certInfo =
-		// CertUtil.getX509CertInfo("Q:\\epcc\\wanglian-rsa.cer");
-		// boolean verifySign = RSASignatureUtil.doCheck(responseStr,
-		// responseSignStr, certInfo.getKey(), Constants.UTF_8);
 		boolean verifySign = RsaUtils.vertify(publicKey, responseStr, responseSignStr);
 		System.out.println("verifySign=" + verifySign);
+		Assert.assertTrue(verifySign);
 	}
 
 	/**

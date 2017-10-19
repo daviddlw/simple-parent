@@ -108,18 +108,26 @@ public class JaxbUtils {
 
 	@SuppressWarnings("unchecked")
 	public static <T> T toBean(String xml, Class<T> type) {
+		if (StringUtils.isBlank(xml)) {
+			return null;
+		}
+
 		T instance = null;
 		try {
 			JAXBContext jaxbContext = jaxbMap.get(type.getName());
 			if (jaxbContext == null) {
 				jaxbContext = JAXBContext.newInstance(type);
 				jaxbMap.put(type.getName(), jaxbContext);
-
 			}
 
+			// 对待转化你的字符串进行ns2添加处理
+			xml = StringUtils.replaceEach(xml, new String[] { "<root", "xmlns", "root>" }, new String[] { "<ns2:root", "xmlns:ns2", "ns2:root>" });
+			
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			try (StringReader sr = new StringReader(xml)) {
 				instance = (T) unmarshaller.unmarshal(sr);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 
 		} catch (Exception ex) {

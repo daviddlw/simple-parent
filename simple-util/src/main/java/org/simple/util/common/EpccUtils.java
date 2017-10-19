@@ -28,4 +28,28 @@ public class EpccUtils {
 		System.out.println(transSerialNo);
 		return transSerialNo;
 	}
+
+	/**
+	 * 获取网联响应中的实际响应内容
+	 * 
+	 * @param result
+	 *            响应字符串
+	 * @return 实际响应内容
+	 */
+	public static String getResponseStr(String result) {
+		String responseStr = result.substring(result.indexOf("?>") + 2, result.indexOf("{S:"));
+		System.out.println("responseStr=" + responseStr);
+		return responseStr;
+	}
+
+	/**
+	 * 获取网联响应中的签名字符串
+	 * @param result 响应字符串
+	 * @return 签名字符串
+	 */
+	public static String getResponseSign(String result) {
+		String responseSignStr = result.substring(result.indexOf("{") + 3, result.indexOf("}"));
+		System.out.println("responseSignStr=" + responseSignStr);
+		return responseSignStr;
+	}
 }
