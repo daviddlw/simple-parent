@@ -20,6 +20,9 @@ import org.simple.util.common.dto.epcc.Epcc40100101Request;
 import org.simple.util.common.dto.epcc.Epcc40100101Response;
 import org.simple.util.common.dto.epcc.MsgBody;
 import org.simple.util.common.dto.epcc.MsgHeader;
+import org.simple.util.constants.LogLevel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 网联用例
@@ -29,6 +32,7 @@ import org.simple.util.common.dto.epcc.MsgHeader;
  */
 public class EpccCaseTest {
 
+	private static Logger logger = LoggerFactory.getLogger(LogLevel.LOG_TEST);
 	private static final String SUCCESS_CODE = "00000000";
 	private static final String Z2006845000013 = "Z2006845000013";
 	private static final String EPCC_401_001_01 = "epcc.401.001.01";
@@ -36,7 +40,6 @@ public class EpccCaseTest {
 	private static final String ORI_ISSR_ID = "OriIssrId";
 	private static final String MSG_TP = "MsgTp";
 	private static final String EPCC_PROT_443_URL = "https://59.151.65.97:443/preSvr";
-	@SuppressWarnings("unused")
 	private static final String EPCC_PROT_551_URL = "https://59.151.65.97:551/preSvr";
 	// 加密私钥
 	private static String privateKey = "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDaqMfKwPPb54k7p71a9Ua9NqblrRT9scH0WXcuk8YwdOAVO7tFlvf2KyRiHU3TQiTimYqX9OZGCyaS6kftQcKZBJm2rV2pE27S2URUzNcVTBR1xpxQnMG8Q9CzUGeUWbsYP1FFjqOkq+kIBwFqTG42q7let6ldRbRNE9HT8d88AHQJS6BRLflJ7bzGgNmyh6mYf+vYUYBvCdH7g2bo1Z1f5k44O7D/zZn9al6dkXV/zoti4evle1WlPCFLTS5R/5Izi3DTKySafBJ9LJzoLylI91K1tiSUXGIH3zWR9xxeYZoIF1yIgQpLvoyS4nrPhe+2/m2QZfyFK+m27hagIU8xAgMBAAECggEAJlNVCY2+cHnpzOH+x5WcO4f7wuAOgNUKWOjhgfF22IFz0WTx0yW9+pDfRK88N94tFuawqyfKwNYtgay8xLI1CJsM0j8a3orAbwaT+oUY4eu+3lHcjiibsIL2bqeWMCN2Lq7ScO2qcy+KndSUg+w3mS+KQzbP4cBY9PWXXp3TcfGTcxpj3YmowNUfvFS4dAWZQeE1iE7rJls+Nb9If/hN8K9tZUfBGON+2jtZwLM2nRHgCPgkOvJgKGbVauCrZlWUFOSHiBGZR+bfGvQx4942t8WbzqS3eb9X8jXPCjFFWb1DiUAlpmsGKEc1NemWcGhKu1/d/VuWKE0GkyBNccBOjQKBgQDvcdQPkVCfEVWpTgc8VpRTtNhl4j51SIijeA+FAYDVa8NaUfcMml7pjWmKKnFJI94K7eGEJ7vN7EPG52xOU1iYWFq1T+xhLyh0gUz0DrFT9BkrGDpqSn9wRATbbc9Gqdm32WneLCz9We8MSD+LF6RXescdaCjGO03iLBAUcV4tkwKBgQDpxw0mclHbg4t4xd1IY17hvvYM2ORSXtt44d4jCkezfsrPPtRg/SSG5wGcOIlP2sIwYv2SCcZTOLbKoRLyEZLXqK0w0Cx7Imc6jB/p7Gj7mNU/7HQUtwvob+gkQOXPtcPfGGvGMsWm7z1Q4uvwDXzs6EuyXenUE41Vm22yQ35qqwKBgC7V0gf1gZKLnnjOVWX8/WheIFHVbigctvVan5aBk8SrHnwFOlCRxWzjhzhKUvxecqkqnIjwCLEfvKYkUDAF53dtGNkMOA1OXxhizj2SvibQwTeHtq1hwwmflF+jW/7TbE2kzitx8p7fv31kiGFZj4C4+EeNPyR/Jx3NRpvpDOXXAoGBANsqqvBtYsK6a4pZbeBMkQpw3fojaMK0fWuxzXDqVVg5OWfcTn1zNchnUAImmszLmRyF4ZYFJfKli/Eh20IoKZOXZm8J63mxQjgIYG8NHUsq+FnKkvVMupQ6PdenJAx8Ktq/6WJR/S1IwyJO68UM0B7GlRjupKYXgnxMkCX80sqrAoGBAJPq+jvIAsDMpb6VXdpQynXokKbfds2JY5pT5neUI9mccRczCY585NroZKYb5cpxpF3bdXkpYzPY+RFUA3usZUluZHui/Kw/yMDIhm3EwLjH0aFVNg5pgM+6AjWfHFL39wUSsCKLwLiSnZ00JXQalJcm3ejzTX1lOXqtJIgm0G9X";
@@ -61,40 +64,40 @@ public class EpccCaseTest {
 		request.setMsgBody(msgBody);
 
 		String requestXml = JaxbUtils.toXmlNoHeader(request);
-		System.out.println("requestXml=" + requestXml);
+		logger.info("requestXml=" + requestXml);
 		String signStr = RsaUtils.sign(privateKey, requestXml);
-		System.out.println("signStr=" + signStr);
+		logger.info("signStr=" + signStr);
 		String requestBody = String.format("%s%s{S:%s}", JaxbUtils.XML_HEADER, requestXml, signStr);
-		System.out.println("requestBody=" + requestBody);
+		logger.info("requestBody=" + requestBody);
 		Map<String, String> headerMap = new HashMap<>();
 		headerMap.put(MSG_TP, EPCC_401_001_01);
 		headerMap.put(ORI_ISSR_ID, Z2006845000013);
 		headerMap.put(CONNECTION, "keep-alive");
 		String result = HttpUtils.httpXmlPost(EPCC_PROT_443_URL, requestBody, headerMap);
-		System.out.println("result=" + result);
+		logger.info("result=" + result);
 
 		String responseStr = EpccUtils.getResponseStr(result);
 		String responseSignStr = EpccUtils.getResponseSign(result);
 
 		String certPath = "Q:" + File.separator + "epcc" + File.separator + "wanglian-rsa.cer";
 		String publicKey = RsaUtils.convertCertFileToRsaPublicKey(certPath);
-		System.out.println("publicKey=" + publicKey);
+		logger.info("publicKey=" + publicKey);
 
 		// 验签
 		boolean verifySign = RsaUtils.vertify(publicKey, responseStr, responseSignStr);
-		System.out.println("verifySign=" + verifySign);
+		logger.info("verifySign=" + verifySign);
 		Assert.assertTrue(verifySign);
 
 		// 组装成对应的JavaBean
 		Epcc40100101Response response = JaxbUtils.toBean(String.format("%s%s", JaxbUtils.XML_HEADER, responseStr), Epcc40100101Response.class);
-		System.out.println(response);
+		logger.info(response.toString());
 		String code = response.getMsgBody().getSysRtnInf().getSysRtnCd();
 		String message = response.getMsgBody().getSysRtnInf().getSysRtnDesc();
 		Assert.assertEquals(SUCCESS_CODE, code);
-		System.out.println("message=" + message);
+		logger.info("message=" + message);
 		List<String> ctrlNbInfs = new ArrayList<>();
 		response.getMsgBody().getCtrlNbInfList().forEach(n -> ctrlNbInfs.add(n.getCtrlNbF()));
-		System.out.println(ctrlNbInfs);
+		logger.info(ctrlNbInfs.toString());
 	}
 
 	/**
@@ -125,7 +128,7 @@ public class EpccCaseTest {
 	private void identityAuthAndSign(String trxCtgy, String tranSerialNo, String authMsg) throws Exception {
 		// 产生随机aes256bit-32字节长度秘钥
 		String aeskey = RandomStringUtils.randomAlphanumeric(32);
-		System.out.println("aeskey=" + aeskey + ",length=" + aeskey.length());
+		logger.info("aeskey=" + aeskey + ",length=" + aeskey.length());
 
 		String idNo = "421127198509140413";
 		String idName = "张三丰1";
@@ -139,18 +142,18 @@ public class EpccCaseTest {
 
 		// 可用该秘钥对敏感信息加密如果没有则不需要加密
 		String envlpStr = String.format("01|%s", aeskey);
-		System.out.println("envlpStr=" + envlpStr);
+		logger.info("envlpStr=" + envlpStr);
 
 		// 使用网联平台公钥对该信封信息进行加密
 		String certPath = "Q:" + File.separator + "epcc" + File.separator + "wanglian-rsa.cer";
 		String publicKey = RsaUtils.convertCertFileToRsaPublicKey(certPath);
-		System.out.println("publicKey=" + publicKey);
+		logger.info("publicKey=" + publicKey);
 		String dgtlEnvlpStr = RsaUtils.encryptByPublicKey(publicKey, envlpStr);
-		System.out.println("dgtlEnvlpStr=" + dgtlEnvlpStr);
+		logger.info("dgtlEnvlpStr=" + dgtlEnvlpStr);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		String privateKey = "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDaqMfKwPPb54k7p71a9Ua9NqblrRT9scH0WXcuk8YwdOAVO7tFlvf2KyRiHU3TQiTimYqX9OZGCyaS6kftQcKZBJm2rV2pE27S2URUzNcVTBR1xpxQnMG8Q9CzUGeUWbsYP1FFjqOkq+kIBwFqTG42q7let6ldRbRNE9HT8d88AHQJS6BRLflJ7bzGgNmyh6mYf+vYUYBvCdH7g2bo1Z1f5k44O7D/zZn9al6dkXV/zoti4evle1WlPCFLTS5R/5Izi3DTKySafBJ9LJzoLylI91K1tiSUXGIH3zWR9xxeYZoIF1yIgQpLvoyS4nrPhe+2/m2QZfyFK+m27hagIU8xAgMBAAECggEAJlNVCY2+cHnpzOH+x5WcO4f7wuAOgNUKWOjhgfF22IFz0WTx0yW9+pDfRK88N94tFuawqyfKwNYtgay8xLI1CJsM0j8a3orAbwaT+oUY4eu+3lHcjiibsIL2bqeWMCN2Lq7ScO2qcy+KndSUg+w3mS+KQzbP4cBY9PWXXp3TcfGTcxpj3YmowNUfvFS4dAWZQeE1iE7rJls+Nb9If/hN8K9tZUfBGON+2jtZwLM2nRHgCPgkOvJgKGbVauCrZlWUFOSHiBGZR+bfGvQx4942t8WbzqS3eb9X8jXPCjFFWb1DiUAlpmsGKEc1NemWcGhKu1/d/VuWKE0GkyBNccBOjQKBgQDvcdQPkVCfEVWpTgc8VpRTtNhl4j51SIijeA+FAYDVa8NaUfcMml7pjWmKKnFJI94K7eGEJ7vN7EPG52xOU1iYWFq1T+xhLyh0gUz0DrFT9BkrGDpqSn9wRATbbc9Gqdm32WneLCz9We8MSD+LF6RXescdaCjGO03iLBAUcV4tkwKBgQDpxw0mclHbg4t4xd1IY17hvvYM2ORSXtt44d4jCkezfsrPPtRg/SSG5wGcOIlP2sIwYv2SCcZTOLbKoRLyEZLXqK0w0Cx7Imc6jB/p7Gj7mNU/7HQUtwvob+gkQOXPtcPfGGvGMsWm7z1Q4uvwDXzs6EuyXenUE41Vm22yQ35qqwKBgC7V0gf1gZKLnnjOVWX8/WheIFHVbigctvVan5aBk8SrHnwFOlCRxWzjhzhKUvxecqkqnIjwCLEfvKYkUDAF53dtGNkMOA1OXxhizj2SvibQwTeHtq1hwwmflF+jW/7TbE2kzitx8p7fv31kiGFZj4C4+EeNPyR/Jx3NRpvpDOXXAoGBANsqqvBtYsK6a4pZbeBMkQpw3fojaMK0fWuxzXDqVVg5OWfcTn1zNchnUAImmszLmRyF4ZYFJfKli/Eh20IoKZOXZm8J63mxQjgIYG8NHUsq+FnKkvVMupQ6PdenJAx8Ktq/6WJR/S1IwyJO68UM0B7GlRjupKYXgnxMkCX80sqrAoGBAJPq+jvIAsDMpb6VXdpQynXokKbfds2JY5pT5neUI9mccRczCY585NroZKYb5cpxpF3bdXkpYzPY+RFUA3usZUluZHui/Kw/yMDIhm3EwLjH0aFVNg5pgM+6AjWfHFL39wUSsCKLwLiSnZ00JXQalJcm3ejzTX1lOXqtJIgm0G9X";
-		System.out.println("privateKey=" + privateKey);
+		logger.info("privateKey=" + privateKey);
 		StringBuilder requestBodySb = new StringBuilder();
 		requestBodySb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 		StringBuilder sb = new StringBuilder();
@@ -188,7 +191,7 @@ public class EpccCaseTest {
 		sb.append("<InstgInf>");
 		sb.append("<InstgId>Z2006845000013</InstgId>");
 		String paymentAccountNo = RandomStringUtils.randomNumeric(16);
-		System.out.println("paymentAccountNo=" + paymentAccountNo);
+		logger.info("paymentAccountNo=" + paymentAccountNo);
 		String encryptPaymentAccountNo = AesUtils.Aes256Encode(paymentAccountNo, aeskey);
 		if ("0202".equals(trxCtgy)) {
 			sb.append("<InstgAcct>" + encryptPaymentAccountNo + "</InstgAcct>");
@@ -198,38 +201,38 @@ public class EpccCaseTest {
 		sb.append("</root>");
 
 		String requestXml = sb.toString();
-		System.out.println("requestXml=" + requestXml);
-		System.out.println("requestXml.length=" + requestXml.length());
+		logger.info("requestXml=" + requestXml);
+		logger.info("requestXml.length=" + requestXml.length());
 
 		String signStr = RsaUtils.sign(privateKey, requestXml);
-		System.out.println(signStr);
+		logger.info(signStr);
 		sb.append("{S:");
 		sb.append(signStr);
 		sb.append("}");
 		String content = sb.toString();
-		System.out.println("==================content================");
-		System.out.println(content);
+		logger.info("==================content================");
+		logger.info(content);
 
 		requestBodySb.append(content);
-		System.out.println("requestBody=" + requestBodySb.toString());
+		logger.info("requestBody=" + requestBodySb.toString());
 		Map<String, String> headerMap = new HashMap<>();
 		headerMap.put(MSG_TP, "epcc.101.001.01");
 		headerMap.put(ORI_ISSR_ID, "Z2006845000013");
 		headerMap.put(CONNECTION, "keep-alive");
 		String result = HttpUtils.httpXmlPost(EPCC_PROT_443_URL, requestBodySb.toString(), headerMap);
-		System.out.println("result=" + result);
+		logger.info("result=" + result);
 
 		// 截取返回报文（改成正则）
 		String responseStr = result.substring(result.indexOf("?>") + 2, result.indexOf("{S:"));
-		System.out.println("responseStr=" + responseStr);
+		logger.info("responseStr=" + responseStr);
 
 		// 截取签名串（改成正则）
 		String responseSignStr = result.substring(result.indexOf("{") + 3, result.indexOf("}"));
-		System.out.println("responseSignStr=" + responseSignStr);
+		logger.info("responseSignStr=" + responseSignStr);
 
 		// 验签
 		boolean verifySign = RsaUtils.vertify(publicKey, responseStr, responseSignStr);
-		System.out.println("verifySign=" + verifySign);
+		logger.info("verifySign=" + verifySign);
 		Assert.assertTrue(verifySign);
 	}
 }
