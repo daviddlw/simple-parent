@@ -1,4 +1,4 @@
-package org.simple.util.common.dto.test;
+package org.simple.util.dto.test;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

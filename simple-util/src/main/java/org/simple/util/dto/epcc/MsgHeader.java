@@ -1,4 +1,4 @@
-package org.simple.util.common.dto.epcc;
+package org.simple.util.dto.epcc;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -36,7 +36,7 @@ public class MsgHeader implements Serializable {
 	@XmlElement(name = "NcrptnSN")
 	private String ncrptnSN;
 
-	@XmlElement(name = "NcrptnSN")
+	@XmlElement(name = "DgtlEnvlp")
 	private String dgtlEnvlp;
 
 	public Date getSndDt() {

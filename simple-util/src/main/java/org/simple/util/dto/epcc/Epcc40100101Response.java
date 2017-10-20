@@ -1,4 +1,4 @@
-package org.simple.util.common.dto.epcc;
+package org.simple.util.dto.epcc;
 
 import java.io.Serializable;
 
@@ -19,7 +19,7 @@ public class Epcc40100101Response implements Serializable {
 	private MsgHeader msgHeader;
 
 	@XmlElement(name = "MsgBody")
-	private Epcc40100101MsgBody msgBody;
+	private Epcc40100101RespMsgBody msgBody;
 
 	public MsgHeader getMsgHeader() {
 		return msgHeader;
@@ -29,11 +29,11 @@ public class Epcc40100101Response implements Serializable {
 		this.msgHeader = msgHeader;
 	}
 
-	public Epcc40100101MsgBody getMsgBody() {
+	public Epcc40100101RespMsgBody getMsgBody() {
 		return msgBody;
 	}
 
-	public void setMsgBody(Epcc40100101MsgBody msgBody) {
+	public void setMsgBody(Epcc40100101RespMsgBody msgBody) {
 		this.msgBody = msgBody;
 	}
 

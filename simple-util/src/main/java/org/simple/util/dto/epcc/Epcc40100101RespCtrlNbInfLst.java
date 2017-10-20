@@ -1,4 +1,4 @@
-package org.simple.util.common.dto.epcc;
+package org.simple.util.dto.epcc;
 
 import java.io.Serializable;
 

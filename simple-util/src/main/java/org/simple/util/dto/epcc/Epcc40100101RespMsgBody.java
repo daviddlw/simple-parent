@@ -1,4 +1,4 @@
-package org.simple.util.common.dto.epcc;
+package org.simple.util.dto.epcc;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder = { "ctrlNbInfList", "sysRtnInf" })
-public class Epcc40100101MsgBody extends MsgBody {
+public class Epcc40100101RespMsgBody extends MsgBody {
 
 	private static final long serialVersionUID = 1L;
 
