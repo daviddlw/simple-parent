@@ -221,6 +221,246 @@ public class EpccCaseTest {
 		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
 		Assert.assertEquals("PB511007", respCode);
 	}
+	
+	/**
+	 * case-101106
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101106Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511008", respCode);
+	}
+	
+	/**
+	 * case-101107
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101107Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511009", respCode);
+	}
+	
+	/**
+	 * case-101108
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101108Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511010", respCode);
+	}
+	
+	/**
+	 * case-101109
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101109Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511013", respCode);
+	}
+	
+	/**
+	 * case-101110
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101110Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511017", respCode);
+	}
+	
+	/**
+	 * case-101111
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101111Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511018", respCode);
+	}
+	
+	/**
+	 * case-101112
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101112Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511019", respCode);
+	}
+	
+	/**
+	 * case-101113
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101113Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511020", respCode);
+	}
+	
+	/**
+	 * case-101113
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101114Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511021", respCode);
+	}
+	
+	/**
+	 * case-101115
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101115Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511022", respCode);
+	}
+	
+	/**
+	 * case-101116
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101116Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511027", respCode);
+	}
+	
+	/**
+	 * case-101117
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101117Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511028", respCode);
+	}
+	
+	/**
+	 * case-101118
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101118Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511004", respCode);
+	}
+	
+	/**
+	 * case-101119
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101119Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511014", respCode);
+	}
+	
+	/**
+	 * case-101120
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101120Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511016", respCode);
+	}
+	
+	/**
+	 * case-101121
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101121Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511024", respCode);
+	}
+	
+	/**
+	 * case-101122
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101122Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511025", respCode);
+	}
+	
+	/**
+	 * case-101123
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101123Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511026", respCode);
+	}
+	
+	/**
+	 * case-101124
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101124Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511098", respCode);
+	}
+	
+	/**
+	 * case-101125
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case101125Test() throws Exception {
+		String tranSerialNo = EpccUtils.genTransSerialNo();
+		identityAuthAndSign("0201", tranSerialNo, "");
+		String respCode = identityAuthAndSign("0202", tranSerialNo, RandomStringUtils.randomNumeric(6));
+		Assert.assertEquals("PB511012", respCode);
+	}
 
 	private String identityAuthAndSign(String trxCtgy, String tranSerialNo, String authMsg) throws Exception {
 		// 产生随机aes256bit-32字节长度秘钥
