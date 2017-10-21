@@ -1,4 +1,4 @@
-package org.simple.util.dto.epcc;
+package org.simple.util.dto.epcc40100101;
 
 import java.util.List;
 
@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlType;
+
+import org.simple.util.dto.MsgBody;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder = { "ctrlNbInfList", "sysRtnInf" })

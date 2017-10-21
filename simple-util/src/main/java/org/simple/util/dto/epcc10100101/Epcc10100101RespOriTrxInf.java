@@ -1,4 +1,4 @@
-package org.simple.util.dto.epcc;
+package org.simple.util.dto.epcc10100101;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.simple.util.common.JaxbDateSerializer;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Epcc10100101ReqTrxInf implements Serializable {
+public class Epcc10100101RespOriTrxInf implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,9 +24,6 @@ public class Epcc10100101ReqTrxInf implements Serializable {
 	@XmlJavaTypeAdapter(JaxbDateSerializer.class)
 	@XmlElement(name = "TrxDtTm")
 	private Date trxDtTm;
-
-	@XmlElement(name = "AuthMsg")
-	private String authMsg;
 
 	public String getTrxCtgy() {
 		return trxCtgy;
@@ -52,17 +49,9 @@ public class Epcc10100101ReqTrxInf implements Serializable {
 		this.trxDtTm = trxDtTm;
 	}
 
-	public String getAuthMsg() {
-		return authMsg;
-	}
-
-	public void setAuthMsg(String authMsg) {
-		this.authMsg = authMsg;
-	}
-
 	@Override
 	public String toString() {
-		return "Epcc10100101ReqTrxInf [trxCtgy=" + trxCtgy + ", trxId=" + trxId + ", trxDtTm=" + trxDtTm + ", authMsg=" + authMsg + "]";
+		return "Epcc10100101RespOriTrxInf [trxCtgy=" + trxCtgy + ", trxId=" + trxId + ", trxDtTm=" + trxDtTm + "]";
 	}
 
 }

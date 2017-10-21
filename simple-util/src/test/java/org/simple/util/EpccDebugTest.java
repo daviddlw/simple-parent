@@ -46,7 +46,6 @@ public class EpccDebugTest {
 	private static final String ORI_ISSR_ID = "OriIssrId";
 	private static final String MSG_TP = "MsgTp";
 	private static final String EPCC_PROT_443_URL = "https://59.151.65.97:443/preSvr";
-	private static final String EPCC_PROT_551_URL = "https://59.151.65.97:551/preSvr";
 	
 	private static final String EPCC_401_001_01 = "epcc.401.001.01";
 	private static final String EPCC_101_001_01 = "epcc.101.001.01";
@@ -239,6 +238,7 @@ public class EpccDebugTest {
 		Assert.assertTrue(verifySign);
 	}
 
+	@SuppressWarnings("unused")
 	private void identityAuthAndSign(String trxCtgy, String tranSerialNo, String authMsg) throws Exception {
 		// 产生随机aes256bit-32字节长度秘钥
 		String aeskey = RandomStringUtils.randomAlphanumeric(32);

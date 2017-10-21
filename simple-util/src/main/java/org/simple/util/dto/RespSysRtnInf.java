@@ -1,4 +1,4 @@
-package org.simple.util.dto.epcc;
+package org.simple.util.dto;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -6,12 +6,9 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import org.simple.util.common.JaxbDateSerializer;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Epcc10100101RespSysRtnInf implements Serializable {
+public class RespSysRtnInf implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,7 +18,6 @@ public class Epcc10100101RespSysRtnInf implements Serializable {
 	@XmlElement(name = "SysRtnDesc")
 	private String sysRtnDesc;
 
-	@XmlJavaTypeAdapter(JaxbDateSerializer.class)
 	@XmlElement(name = "SysRtnTm")
 	private Date sysRtnTm;
 
@@ -51,7 +47,7 @@ public class Epcc10100101RespSysRtnInf implements Serializable {
 
 	@Override
 	public String toString() {
-		return "SysRtnInf [sysRtnCd=" + sysRtnCd + ", sysRtnDesc=" + sysRtnDesc + ", sysRtnTm=" + sysRtnTm + "]";
+		return "RespSysRtnInf [sysRtnCd=" + sysRtnCd + ", sysRtnDesc=" + sysRtnDesc + ", sysRtnTm=" + sysRtnTm + "]";
 	}
 
 }

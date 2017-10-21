@@ -1,4 +1,4 @@
-package org.simple.util.dto.epcc;
+package org.simple.util.dto.epcc40100101;
 
 import java.io.Serializable;
 
@@ -8,10 +8,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.simple.util.dto.MsgHeader;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "root", namespace = "namespace_string")
 @XmlType(propOrder = { "msgHeader", "msgBody" })
-public class Epcc40100101Request implements Serializable {
+public class Epcc40100101Response implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,7 +21,7 @@ public class Epcc40100101Request implements Serializable {
 	private MsgHeader msgHeader;
 
 	@XmlElement(name = "MsgBody")
-	private MsgBody msgBody;
+	private Epcc40100101RespMsgBody msgBody;
 
 	public MsgHeader getMsgHeader() {
 		return msgHeader;
@@ -29,17 +31,17 @@ public class Epcc40100101Request implements Serializable {
 		this.msgHeader = msgHeader;
 	}
 
-	public MsgBody getMsgBody() {
+	public Epcc40100101RespMsgBody getMsgBody() {
 		return msgBody;
 	}
 
-	public void setMsgBody(MsgBody msgBody) {
+	public void setMsgBody(Epcc40100101RespMsgBody msgBody) {
 		this.msgBody = msgBody;
 	}
 
 	@Override
 	public String toString() {
-		return "Epcc40100101Request [msgHeader=" + msgHeader + ", msgBody=" + msgBody + "]";
+		return "Epcc40100101Response [msgHeader=" + msgHeader + ", msgBody=" + msgBody + "]";
 	}
 
 }

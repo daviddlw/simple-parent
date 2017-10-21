@@ -1,4 +1,4 @@
-package org.simple.util.dto.epcc;
+package org.simple.util.dto;
 
 import java.io.Serializable;
 import java.util.Date;

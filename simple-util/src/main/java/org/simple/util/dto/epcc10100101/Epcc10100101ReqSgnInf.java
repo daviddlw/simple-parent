@@ -1,4 +1,4 @@
-package org.simple.util.dto.epcc;
+package org.simple.util.dto.epcc10100101;
 
 import java.io.Serializable;
 
@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Epcc10100101RespSgnInf implements Serializable {
+public class Epcc10100101ReqSgnInf implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,8 +23,14 @@ public class Epcc10100101RespSgnInf implements Serializable {
 	@XmlElement(name = "SgnAcctNm")
 	private String sgnAcctNm;
 
-	@XmlElement(name = "SgnAcctLvl")
-	private String sgnAcctLvl;
+	@XmlElement(name = "IDTp")
+	private String idTp;
+
+	@XmlElement(name = "IDNo")
+	private String idNo;
+
+	@XmlElement(name = "MobNo")
+	private String mobNo;
 
 	public String getSgnAcctIssrId() {
 		return sgnAcctIssrId;
@@ -58,18 +64,34 @@ public class Epcc10100101RespSgnInf implements Serializable {
 		this.sgnAcctNm = sgnAcctNm;
 	}
 
-	public String getSgnAcctLvl() {
-		return sgnAcctLvl;
+	public String getIdTp() {
+		return idTp;
 	}
 
-	public void setSgnAcctLvl(String sgnAcctLvl) {
-		this.sgnAcctLvl = sgnAcctLvl;
+	public void setIdTp(String idTp) {
+		this.idTp = idTp;
+	}
+
+	public String getIdNo() {
+		return idNo;
+	}
+
+	public void setIdNo(String idNo) {
+		this.idNo = idNo;
+	}
+
+	public String getMobNo() {
+		return mobNo;
+	}
+
+	public void setMobNo(String mobNo) {
+		this.mobNo = mobNo;
 	}
 
 	@Override
 	public String toString() {
-		return "Epcc10100101RespSgnInf [sgnAcctIssrId=" + sgnAcctIssrId + ", sgnAcctTp=" + sgnAcctTp + ", sgnAcctId=" + sgnAcctId + ", sgnAcctNm=" + sgnAcctNm
-				+ ", sgnAcctLvl=" + sgnAcctLvl + "]";
+		return "Epcc10100101ReqSgnInf [sgnAcctIssrId=" + sgnAcctIssrId + ", sgnAcctTp=" + sgnAcctTp + ", sgnAcctId=" + sgnAcctId + ", sgnAcctNm=" + sgnAcctNm
+				+ ", idTp=" + idTp + ", idNo=" + idNo + ", mobNo=" + mobNo + "]";
 	}
 
 }
