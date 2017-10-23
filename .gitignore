@@ -10,6 +10,7 @@ target/
 .settings/
 .project
 .classpath
+logs/.*
 
 # idea ignore
 .idea/
