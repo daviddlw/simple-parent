@@ -552,6 +552,26 @@ public class EpccCaseTest extends BasicEpccCase {
 		String respCode = unsign();
 		Assert.assertEquals("PB512002", respCode);
 	}
+	
+	/**
+	 * case-103102
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case103102Test() throws Exception {
+		String respCode = unsign();
+		Assert.assertEquals("PB512098", respCode);
+	}
+	
+	/**
+	 * case-103103
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc10100101Case103103Test() throws Exception {
+		String respCode = unsign();
+		Assert.assertEquals("PB512099", respCode);
+	}
 
 	private String unsign() throws Exception {
 		// 产生随机aes256bit-32字节长度秘钥
