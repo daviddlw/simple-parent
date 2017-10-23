@@ -30,6 +30,26 @@ public class EpccUtils {
 	}
 
 	/**
+	 * 生成随机批次号
+	 * 
+	 * @return 批次号
+	 */
+	public static String genBatchId() {
+		String batchId = String.format("B%s%s", sdf.format(new Date()), RandomStringUtils.randomNumeric(4));
+		return batchId;
+	}
+
+	/**
+	 * 生成随机订单号
+	 * 
+	 * @return
+	 */
+	public static String genOrderId() {
+		String orderId = String.format("%s%s", sdf.format(new Date()), RandomStringUtils.randomNumeric(12));
+		return orderId;
+	}
+
+	/**
 	 * 获取网联响应中的实际响应内容
 	 * 
 	 * @param result
@@ -44,7 +64,9 @@ public class EpccUtils {
 
 	/**
 	 * 获取网联响应中的签名字符串
-	 * @param result 响应字符串
+	 * 
+	 * @param result
+	 *            响应字符串
 	 * @return 签名字符串
 	 */
 	public static String getResponseSign(String result) {

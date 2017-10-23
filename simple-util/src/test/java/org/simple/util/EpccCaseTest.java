@@ -31,7 +31,7 @@ import org.simple.util.dto.epcc40100101.Epcc40100101RespCtrlNbInfLst;
 import org.simple.util.dto.epcc40100101.Epcc40100101Response;
 
 /**
- * 网联用例 签约类
+ * 网联用例-签约类
  * 
  * @author dailiwei
  *
@@ -480,8 +480,8 @@ public class EpccCaseTest extends BasicEpccCase {
 
 		Epcc10100101ReqMsgBody msgBody = new Epcc10100101ReqMsgBody();
 		Epcc10100101ReqSgnInf reqSgnInf = new Epcc10100101ReqSgnInf();
-		reqSgnInf.setSgnAcctIssrId("C1010611003601");
-		reqSgnInf.setSgnAcctTp("00");
+		reqSgnInf.setSgnAcctIssrId(C1010611003601);
+		reqSgnInf.setSgnAcctTp(ACCT_TP_00);
 		reqSgnInf.setSgnAcctId(encryptCardNo);
 		reqSgnInf.setSgnAcctNm(encryptIdName);
 		reqSgnInf.setIdNo(encryptIdNo);
@@ -582,7 +582,6 @@ public class EpccCaseTest extends BasicEpccCase {
 		logger.info("envlpStr=" + envlpStr);
 
 		// 使用网联平台公钥对该信封信息进行加密
-		String certPath = "D:" + File.separator + "epcc" + File.separator + "wanglian-rsa.cer";
 		String publicKey = RsaUtils.convertCertFileToRsaPublicKey(certPath);
 		logger.info("publicKey=" + publicKey);
 		String dgtlEnvlpStr = RsaUtils.encryptByPublicKey(publicKey, envlpStr);
@@ -598,9 +597,9 @@ public class EpccCaseTest extends BasicEpccCase {
 		MsgHeader msgHeader = getMsgHeader(EPCC_103_001_01, "4000068829", dgtlEnvlpStr);
 		Epcc10300101ReqMsgBody msgBody = new Epcc10300101ReqMsgBody();
 		Epcc10300101ReqSgnInf sgnInf = new Epcc10300101ReqSgnInf();
-		sgnInf.setSgnAcctIssrId("C1010611003601");
+		sgnInf.setSgnAcctIssrId(C1010611003601);
 		sgnInf.setSgnAcctShrtId("1235");
-		sgnInf.setSgnAcctTp("00");
+		sgnInf.setSgnAcctTp(ACCT_TP_00);
 		sgnInf.setSgnNo("487465669");
 		Epcc10300101ReqInstgInf instgInf = new Epcc10300101ReqInstgInf();
 		instgInf.setInstgId(Z2006845000013);
