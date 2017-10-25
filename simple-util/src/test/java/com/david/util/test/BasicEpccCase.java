@@ -1,4 +1,4 @@
-package org.simple.util;
+package com.david.util.test;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -7,11 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.simple.util.common.HttpUtils;
-import org.simple.util.common.JaxbUtils;
-import org.simple.util.common.RsaUtils;
-import org.simple.util.constants.LogLevel;
-import org.simple.util.dto.MsgHeader;
+import com.david.util.common.HttpUtils;
+import com.david.util.common.JaxbUtils;
+import com.david.util.common.RsaUtils;
+import com.david.util.constants.LogLevel;
+import com.david.util.dto.MsgHeader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
