@@ -292,5 +292,224 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("PB522099", respCode);
 	}
+	
+	/**
+	 * case 205117
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205117Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("RB622099", respCode);
+	}
+	
+	/**
+	 * case 205118
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205118Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("RB620095", respCode);
+	}
+	
+	/**
+	 * case 205119
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205119Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("RB620097", respCode);
+	}
+	
+	/**
+	 * case 205120
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205120Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("PB520005", respCode);
+	}
+	
+	/**
+	 * case 205121
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205121Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("PB520006", respCode);
+	}
+	
+	/**
+	 * case 205122
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205122Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("PB520007", respCode);
+	}
+	
+	/**
+	 * case 205123
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101CasePB520008Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("PB520008", respCode);
+	}
+	
+	/**
+	 * case 205124
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205124Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("PB520009", respCode);
+	}
+	
+	/**
+	 * case 205125
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205125Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("PB520010", respCode);
+	}
+	
+	/**
+	 * case 205126
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205126Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("PB520095", respCode);
+	}
 
+	/**
+	 * case 205127
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205127Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("PB520017", respCode);
+	}
+	
+	/**
+	 * case 205128
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205128Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("PB520018", respCode);
+	}
+	
+	/**
+	 * case 205129
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205129Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("PB520097", respCode);
+	}
+	
+	/**
+	 * case 205130
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205130Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("PB520032", respCode);
+	}
+	
+	/**
+	 * case 205131
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205131Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("RB620032", respCode);
+	}
+
+	/**
+	 * case 205132
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205132Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("PS500001", respCode);
+	}
+	
+	/**
+	 * case 205133
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205133Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("PS500003", respCode);
+	}
+	
+	/**
+	 * case 205134
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205134Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("PS500004", respCode);
+	}
+	
+	/**
+	 * case 205135
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205135Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("RS600001", respCode);
+	}
+	
+	/**
+	 * case 205136
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205136Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("RS600003", respCode);
+	}
 }
