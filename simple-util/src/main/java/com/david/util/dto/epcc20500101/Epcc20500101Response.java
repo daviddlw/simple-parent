@@ -41,7 +41,7 @@ public class Epcc20500101Response implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Epcc20100101Response [msgHeader=" + msgHeader + ", msgBody=" + msgBody + "]";
+		return "Epcc20500101Response [msgHeader=" + msgHeader + ", msgBody=" + msgBody + "]";
 	}
 
 }

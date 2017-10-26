@@ -37,7 +37,7 @@ public class Epcc20500101RespMsgBody implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Epcc20100101RespMsgBody [sysRtnInf=" + sysRtnInf + ", bizInf=" + bizInf + "]";
+		return "Epcc20500101RespMsgBody [sysRtnInf=" + sysRtnInf + ", bizInf=" + bizInf + "]";
 	}
 
 }

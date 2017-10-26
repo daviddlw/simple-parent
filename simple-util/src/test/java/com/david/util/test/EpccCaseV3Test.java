@@ -15,6 +15,7 @@ import com.david.util.common.RsaUtils;
 import com.david.util.dto.MsgHeader;
 import com.david.util.dto.ReqResfdInf;
 import com.david.util.dto.ReqTrxInf;
+import com.david.util.dto.RespReturnDTO;
 import com.david.util.dto.epcc20500101.Epcc20500101ReqMsgBody;
 import com.david.util.dto.epcc20500101.Epcc20500101ReqOriTrxInf;
 import com.david.util.dto.epcc20500101.Epcc20500101ReqPyeeInf;
@@ -25,6 +26,14 @@ import com.david.util.dto.epcc20500101.Epcc20500101Response;
 public class EpccCaseV3Test extends BasicEpccCase {
 
 	private String doRefund() throws Exception {
+		RespReturnDTO respReturnDTO = doRefundRespReturnDTO();
+		String code = StringUtils.isBlank(respReturnDTO.getBizInf().getBizStsCd())
+				? respReturnDTO.getSysRtnInf().getSysRtnCd()
+				: respReturnDTO.getBizInf().getBizStsCd();
+		return code;
+	}
+
+	private RespReturnDTO doRefundRespReturnDTO() throws Exception {
 		// 产生随机aes256bit-32字节长度秘钥
 		String aeskey = RandomStringUtils.randomAlphanumeric(32);
 		logger.info("aeskey=" + aeskey + ",length=" + aeskey.length());
@@ -86,13 +95,17 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		// 组装成对应的JavaBean
 		Epcc20500101Response response = JaxbUtils.toBean(String.format("%s%s", JaxbUtils.XML_HEADER, responseStr), Epcc20500101Response.class);
 		logger.info(response.toString());
-//		Assert.assertEquals(SUCCESS_CODE, response.getMsgBody().getSysRtnInf().getSysRtnCd());
+		// Assert.assertEquals(SUCCESS_CODE,
+		// response.getMsgBody().getSysRtnInf().getSysRtnCd());
 		logger.info("TrxStatus=" + response.getMsgBody().getBizInf().getTrxStatus());
 		logger.info("BizStsCd=" + response.getMsgBody().getBizInf().getBizStsCd());
 		logger.info("BizStsDesc=" + response.getMsgBody().getBizInf().getBizStsDesc());
-		String code = StringUtils.isBlank(response.getMsgBody().getBizInf().getBizStsCd()) ? response.getMsgBody().getSysRtnInf().getSysRtnCd()
-				: response.getMsgBody().getBizInf().getBizStsCd();
-		return code;
+
+		RespReturnDTO respReturnDTO = new RespReturnDTO();
+		respReturnDTO.setSysRtnInf(response.getMsgBody().getSysRtnInf());
+		respReturnDTO.setBizInf(response.getMsgBody().getBizInf());
+
+		return respReturnDTO;
 	}
 
 	/**
@@ -292,7 +305,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("PB522099", respCode);
 	}
-	
+
 	/**
 	 * case 205117
 	 * 
@@ -303,7 +316,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("RB622099", respCode);
 	}
-	
+
 	/**
 	 * case 205118
 	 * 
@@ -314,7 +327,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("RB620095", respCode);
 	}
-	
+
 	/**
 	 * case 205119
 	 * 
@@ -325,7 +338,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("RB620097", respCode);
 	}
-	
+
 	/**
 	 * case 205120
 	 * 
@@ -336,7 +349,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("PB520005", respCode);
 	}
-	
+
 	/**
 	 * case 205121
 	 * 
@@ -347,7 +360,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("PB520006", respCode);
 	}
-	
+
 	/**
 	 * case 205122
 	 * 
@@ -358,7 +371,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("PB520007", respCode);
 	}
-	
+
 	/**
 	 * case 205123
 	 * 
@@ -369,7 +382,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("PB520008", respCode);
 	}
-	
+
 	/**
 	 * case 205124
 	 * 
@@ -380,7 +393,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("PB520009", respCode);
 	}
-	
+
 	/**
 	 * case 205125
 	 * 
@@ -391,7 +404,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("PB520010", respCode);
 	}
-	
+
 	/**
 	 * case 205126
 	 * 
@@ -413,7 +426,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("PB520017", respCode);
 	}
-	
+
 	/**
 	 * case 205128
 	 * 
@@ -424,7 +437,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("PB520018", respCode);
 	}
-	
+
 	/**
 	 * case 205129
 	 * 
@@ -435,7 +448,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("PB520097", respCode);
 	}
-	
+
 	/**
 	 * case 205130
 	 * 
@@ -446,7 +459,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("PB520032", respCode);
 	}
-	
+
 	/**
 	 * case 205131
 	 * 
@@ -468,7 +481,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("PS500001", respCode);
 	}
-	
+
 	/**
 	 * case 205133
 	 * 
@@ -479,7 +492,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("PS500003", respCode);
 	}
-	
+
 	/**
 	 * case 205134
 	 * 
@@ -490,7 +503,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("PS500004", respCode);
 	}
-	
+
 	/**
 	 * case 205135
 	 * 
@@ -501,7 +514,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		String respCode = doRefund();
 		Assert.assertEquals("RS600001", respCode);
 	}
-	
+
 	/**
 	 * case 205136
 	 * 
@@ -511,5 +524,64 @@ public class EpccCaseV3Test extends BasicEpccCase {
 	public void epcc20500101Case205136Test() throws Exception {
 		String respCode = doRefund();
 		Assert.assertEquals("RS600003", respCode);
+	}
+
+	/**
+	 * case 205137
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205137Test() throws Exception {
+		String respCode = doRefund();
+		Assert.assertEquals("RS600004", respCode);
+	}
+
+	/**
+	 * case 205138
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205138Test() throws Exception {
+		RespReturnDTO respReturnDTO = doRefundRespReturnDTO();
+		Assert.assertEquals("ES000098", respReturnDTO.getSysRtnInf().getSysRtnCd());
+		Assert.assertEquals("PS500030", respReturnDTO.getBizInf().getBizStsDesc());
+	}
+
+	/**
+	 * case 205138
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205139Test() throws Exception {
+		RespReturnDTO respReturnDTO = doRefundRespReturnDTO();
+		Assert.assertEquals("ES000098", respReturnDTO.getSysRtnInf().getSysRtnCd());
+		Assert.assertEquals("PS500030", respReturnDTO.getBizInf().getBizStsDesc());
+	}
+	
+	/**
+	 * case 205140
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205140Test() throws Exception {
+		RespReturnDTO respReturnDTO = doRefundRespReturnDTO();
+		Assert.assertEquals("ES000099", respReturnDTO.getSysRtnInf().getSysRtnCd());
+		Assert.assertEquals("PS500031", respReturnDTO.getBizInf().getBizStsDesc());
+	}
+	
+	/**
+	 * case 205141
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void epcc20500101Case205141Test() throws Exception {
+		RespReturnDTO respReturnDTO = doRefundRespReturnDTO();
+		Assert.assertEquals("ES000098", respReturnDTO.getSysRtnInf().getSysRtnCd());
+		Assert.assertEquals("RS600030", respReturnDTO.getBizInf().getBizStsDesc());
 	}
 }

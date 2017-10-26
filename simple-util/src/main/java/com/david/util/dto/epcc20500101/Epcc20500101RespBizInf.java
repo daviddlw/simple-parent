@@ -107,8 +107,9 @@ public class Epcc20500101RespBizInf extends RespBizInf implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Epcc20100101RespBizInf [rpFlg=" + rpFlg + ", trxCtgy=" + trxCtgy + ", trxId=" + trxId + ", dbtrBankId=" + dbtrBankId + ", trxAmt=" + trxAmt
-				+ ", trxStatus=" + trxStatus + ", trxFinishTm=" + trxFinishTm + ", batchId=" + batchId + "]";
+		return "Epcc20500101RespBizInf [rpFlg=" + rpFlg + ", trxCtgy=" + trxCtgy + ", trxId=" + trxId + ", dbtrBankId=" + dbtrBankId + ", trxAmt="
+				+ trxAmt + ", trxStatus=" + trxStatus + ", trxFinishTm=" + trxFinishTm + ", batchId=" + batchId + ", getBizStsCd()=" + getBizStsCd()
+				+ ", getBizStsDesc()=" + getBizStsDesc() + "]";
 	}
 
 }

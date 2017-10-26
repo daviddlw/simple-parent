@@ -134,11 +134,11 @@
 		<property name="valueSerializer" ref="valueSerializer" />
 	</bean>
 
-	<bean id="redisMessageListener" class="com.david.dal.pubsub.RedisMessageListener">
+	<!-- <bean id="redisMessageListener" class="com.david.dal.pubsub.RedisMessageListener">
 		<property name="redisTemplate" ref="stringRedisTemplate" />
 	</bean>
 
-	<!-- 使用MessageListenerAdapter是为了可以指定对应的serializer -->
+	使用MessageListenerAdapter是为了可以指定对应的serializer
 	<bean id="messageListener"
 		class="org.springframework.data.redis.listener.adapter.MessageListenerAdapter">
 		<property name="delegate" ref="redisMessageListener" />
@@ -162,8 +162,8 @@
 		</property>
 	</bean>
 
-	<!-- Channel设置 -->
+	Channel设置
 	<bean id="channelTopic" class="org.springframework.data.redis.listener.ChannelTopic">
 		<constructor-arg value="userTopic" />
-	</bean>
+	</bean> -->
 </beans>
