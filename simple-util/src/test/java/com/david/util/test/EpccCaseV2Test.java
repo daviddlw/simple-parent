@@ -15,7 +15,7 @@ import com.david.util.constants.AcctInTpIdConstants;
 import com.david.util.constants.TrxTrmTpCdConstants;
 import com.david.util.dto.MsgHeader;
 import com.david.util.dto.epcc20100101.Epcc20100101ReqMsgBody;
-import com.david.util.dto.epcc20100101.Epcc20100101ReqOrderInf;
+import com.david.util.dto.epcc20100101.Epcc20100101ReqOriTrxInf;
 import com.david.util.dto.epcc20100101.Epcc20100101ReqPyeeInf;
 import com.david.util.dto.epcc20100101.Epcc20100101ReqPyerInf;
 import com.david.util.dto.epcc20100101.Epcc20100101ReqResfdInf;
@@ -30,7 +30,7 @@ import com.david.util.dto.epcc20100101.Epcc20100101Response;
  *
  */
 public class EpccCaseV2Test extends BasicEpccCase {
-	
+
 	/**
 	 * 协议支付
 	 * @throws Exception
@@ -47,7 +47,7 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		Epcc20100101ReqPyerInf pyerInf = new Epcc20100101ReqPyerInf();
 		pyerInf.setPyerAcctIssrId(C1010611003601);
 		pyerInf.setPyerAcctTp(ACCT_TP_00);
-		pyerInf.setSgnNo("725014142");
+		pyerInf.setSgnNo(SGN_NO);
 		pyerInf.setPyerTrxTrmTp(TrxTrmTpCdConstants.MOBILE);
 		pyerInf.setPyerTrxTrmNo("F93P72HCFR9M");
 
@@ -62,7 +62,7 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		pyeeInf.setPyeeTrxTrmNo("1D6AP1500");
 
 		Epcc20100101ReqResfdInf resfdInf = new Epcc20100101ReqResfdInf();
-		resfdInf.setInstgAcctId("10012786190055100977");
+		resfdInf.setInstgAcctId(RESFD_INF_INSTG_ACCTID);
 		resfdInf.setInstgAcctNm("客户备付金");
 		resfdInf.setResfdAcctIssrId(C1010611003601);
 
@@ -74,7 +74,7 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		trxInf.setBizTp("100002"); // 业务种类A3待补充
 		trxInf.setAcctInTp(AcctInTpIdConstants.RECEIVABLES); // 收款扫码
 
-		Epcc20100101ReqOrderInf orderInf = new Epcc20100101ReqOrderInf();
+		Epcc20100101ReqOriTrxInf orderInf = new Epcc20100101ReqOriTrxInf();
 		orderInf.setOrderId(EpccUtils.genOrderId());
 		orderInf.setOrderDesc("2|2|chd%07515%01%14%0851902%5945%2#2#brd^CNY201.70^1#fng^CNY181.71^1|shy%79231%01%14%210100X%8912%1#1#gyr^CNY134.76^1|");
 		orderInf.setPltfrmNm("batpay");

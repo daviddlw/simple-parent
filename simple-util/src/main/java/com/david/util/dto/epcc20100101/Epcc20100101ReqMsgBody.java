@@ -27,7 +27,7 @@ public class Epcc20100101ReqMsgBody implements Serializable {
 	private Epcc20100101ReqTrxInf trxInf;
 
 	@XmlElement(name = "OrdrInf")
-	private Epcc20100101ReqOrderInf orderInf;
+	private Epcc20100101ReqOriTrxInf orderInf;
 
 	@XmlElement(name = "BatchId")
 	private String batchId;
@@ -75,11 +75,11 @@ public class Epcc20100101ReqMsgBody implements Serializable {
 		this.trxInf = trxInf;
 	}
 
-	public Epcc20100101ReqOrderInf getOrderInf() {
+	public Epcc20100101ReqOriTrxInf getOrderInf() {
 		return orderInf;
 	}
 
-	public void setOrderInf(Epcc20100101ReqOrderInf orderInf) {
+	public void setOrderInf(Epcc20100101ReqOriTrxInf orderInf) {
 		this.orderInf = orderInf;
 	}
 

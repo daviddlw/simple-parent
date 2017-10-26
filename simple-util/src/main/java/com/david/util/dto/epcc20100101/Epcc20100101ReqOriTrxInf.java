@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Epcc20100101ReqOrderInf implements Serializable {
+public class Epcc20100101ReqOriTrxInf implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
