@@ -6,8 +6,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
-import com.david.util.dto.ReqResfdInf;
-import com.david.util.dto.ReqTrxInf;
+import com.david.util.dto.BasicResfdInf;
+import com.david.util.dto.BasicTrxInf;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Epcc20500101ReqMsgBody implements Serializable {
@@ -24,10 +24,10 @@ public class Epcc20500101ReqMsgBody implements Serializable {
 	private Epcc20500101ReqPyeeInf pyeeInf;
 
 	@XmlElement(name="ResfdInf")
-	private ReqResfdInf resfdInf;
+	private BasicResfdInf resfdInf;
 
 	@XmlElement(name="TrxInf")
-	private ReqTrxInf trxInf;
+	private BasicTrxInf trxInf;
 
 	@XmlElement(name="OriTrxInf")
 	private Epcc20500101ReqOriTrxInf oriTrxInf;
@@ -59,19 +59,19 @@ public class Epcc20500101ReqMsgBody implements Serializable {
 		this.pyeeInf = pyeeInf;
 	}
 
-	public ReqResfdInf getResfdInf() {
+	public BasicResfdInf getResfdInf() {
 		return resfdInf;
 	}
 
-	public void setResfdInf(ReqResfdInf resfdInf) {
+	public void setResfdInf(BasicResfdInf resfdInf) {
 		this.resfdInf = resfdInf;
 	}
 
-	public ReqTrxInf getTrxInf() {
+	public BasicTrxInf getTrxInf() {
 		return trxInf;
 	}
 
-	public void setTrxInf(ReqTrxInf trxInf) {
+	public void setTrxInf(BasicTrxInf trxInf) {
 		this.trxInf = trxInf;
 	}
 

@@ -6,10 +6,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
-import com.david.util.dto.ReqTrxInf;
+import com.david.util.dto.BasicTrxInf;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Epcc20100101ReqTrxInf extends ReqTrxInf implements Serializable {
+public class Epcc20100101ReqTrxInf extends BasicTrxInf implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

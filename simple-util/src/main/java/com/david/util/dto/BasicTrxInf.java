@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.david.util.common.JaxbDateSerializer;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ReqTrxInf implements Serializable {
+public class BasicTrxInf implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

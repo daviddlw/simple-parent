@@ -14,8 +14,8 @@ import com.david.util.common.EpccUtils;
 import com.david.util.common.JaxbUtils;
 import com.david.util.common.RsaUtils;
 import com.david.util.dto.MsgHeader;
-import com.david.util.dto.ReqResfdInf;
-import com.david.util.dto.ReqTrxInf;
+import com.david.util.dto.BasicResfdInf;
+import com.david.util.dto.BasicTrxInf;
 import com.david.util.dto.RespReturnDTO;
 import com.david.util.dto.epcc20500101.Epcc20500101ReqMsgBody;
 import com.david.util.dto.epcc20500101.Epcc20500101ReqOriTrxInf;
@@ -56,13 +56,13 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		pyeeInf.setPyeeAcctTp(ACCT_TP_00);
 		pyeeInf.setSgnNo(SGN_NO);
 
-		ReqResfdInf resfdInf = new ReqResfdInf();
+		BasicResfdInf resfdInf = new BasicResfdInf();
 		resfdInf.setResfdAcctIssrId(C1010611003601);
 		resfdInf.setInstgAcctNm("备付金账户");
 		resfdInf.setInstgAcctId(RESFD_INF_INSTG_ACCTID);
 
 		String amount = "CNY" + new BigDecimal(RandomUtils.nextDouble(0, 1000)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-		ReqTrxInf trxInf = new ReqTrxInf();
+		BasicTrxInf trxInf = new BasicTrxInf();
 		trxInf.setTrxCtgy("0121");
 		trxInf.setTrxId(EpccUtils.genTransSerialNo());
 		trxInf.setTrxDtTm(new Date());

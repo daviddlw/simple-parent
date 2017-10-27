@@ -5,10 +5,10 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
-import com.david.util.dto.ReqResfdInf;
+import com.david.util.dto.BasicResfdInf;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Epcc20100101ReqResfdInf extends ReqResfdInf implements Serializable {
+public class Epcc20100101ReqResfdInf extends BasicResfdInf implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

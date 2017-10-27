@@ -4,10 +4,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
-import com.david.util.dto.ReqPyerInf;
+import com.david.util.dto.BasicPyerInf;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Epcc20500101ReqPyerInf extends ReqPyerInf {
+public class Epcc20500101ReqPyerInf extends BasicPyerInf {
 
 	private static final long serialVersionUID = 1L;
 
