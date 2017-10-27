@@ -1,4 +1,4 @@
-package com.david.util.dto.epcc10300101;
+package com.david.util.dto.epcc10400101;
 
 import java.io.Serializable;
 
@@ -7,41 +7,43 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 import com.david.util.dto.BasicBizInf;
+import com.david.util.dto.BasicInstgInf;
+import com.david.util.dto.BasicSgnInf;
 import com.david.util.dto.BasicSysRtnInf;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Epcc10300101RespMsgBody implements Serializable {
+public class Epcc10400101ReqMsgBody implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@XmlElement(name = "SgnInf")
-	private Epcc10300101RespSgnInf sgnInf;
+	@XmlElement(name="SgnInf")
+	private BasicSgnInf sgnInf;
 
-	@XmlElement(name = "InstgInf")
-	private Epcc10300101RespInstgInf instgInf;
+	@XmlElement(name="InstgInf")
+	private BasicInstgInf instgInf;
 
-	@XmlElement(name = "TrxId")
+	@XmlElement(name="TrxId")
 	private String trxId;
 
-	@XmlElement(name = "SysRtnInf")
+	@XmlElement(name="SysRtnInf")
 	private BasicSysRtnInf sysRtnInf;
 
-	@XmlElement(name = "BizInf")
+	@XmlElement(name="BizInf")
 	private BasicBizInf bizInf;
 
-	public Epcc10300101RespSgnInf getSgnInf() {
+	public BasicSgnInf getSgnInf() {
 		return sgnInf;
 	}
 
-	public void setSgnInf(Epcc10300101RespSgnInf sgnInf) {
+	public void setSgnInf(BasicSgnInf sgnInf) {
 		this.sgnInf = sgnInf;
 	}
 
-	public Epcc10300101RespInstgInf getInstgInf() {
+	public BasicInstgInf getInstgInf() {
 		return instgInf;
 	}
 
-	public void setInstgInf(Epcc10300101RespInstgInf instgInf) {
+	public void setInstgInf(BasicInstgInf instgInf) {
 		this.instgInf = instgInf;
 	}
 
@@ -71,8 +73,8 @@ public class Epcc10300101RespMsgBody implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Epcc10300101RespMsgBody [sgnInf=" + sgnInf + ", instgInf=" + instgInf + ", trxId=" + trxId + ", sysRtnInf=" + sysRtnInf + ", bizInf="
-				+ bizInf + "]";
+		return "Epcc40100101ReqMsgBody [sgnInf=" + sgnInf + ", instgInf=" + instgInf + ", trxId=" + trxId + ", sysRtnInf=" + sysRtnInf + ", bizInf=" + bizInf
+				+ "]";
 	}
 
 }

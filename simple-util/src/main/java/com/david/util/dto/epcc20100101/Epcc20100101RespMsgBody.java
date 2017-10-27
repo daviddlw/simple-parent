@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
-import com.david.util.dto.RespSysRtnInf;
+import com.david.util.dto.BasicSysRtnInf;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Epcc20100101RespMsgBody implements Serializable {
@@ -14,16 +14,16 @@ public class Epcc20100101RespMsgBody implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@XmlElement(name = "SysRtnInf")
-	private RespSysRtnInf sysRtnInf;
+	private BasicSysRtnInf sysRtnInf;
 
 	@XmlElement(name = "BizInf")
 	private Epcc20100101RespBizInf bizInf;
 
-	public RespSysRtnInf getSysRtnInf() {
+	public BasicSysRtnInf getSysRtnInf() {
 		return sysRtnInf;
 	}
 
-	public void setSysRtnInf(RespSysRtnInf sysRtnInf) {
+	public void setSysRtnInf(BasicSysRtnInf sysRtnInf) {
 		this.sysRtnInf = sysRtnInf;
 	}
 

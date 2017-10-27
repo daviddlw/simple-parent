@@ -12,13 +12,13 @@ public class RespCommonMsgBody implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@XmlElement(name = "SystRtnInf")
-	private RespSysRtnInf sysRtnInf;
+	private BasicSysRtnInf sysRtnInf;
 
-	public RespSysRtnInf getSysRtnInf() {
+	public BasicSysRtnInf getSysRtnInf() {
 		return sysRtnInf;
 	}
 
-	public void setSysRtnInf(RespSysRtnInf sysRtnInf) {
+	public void setSysRtnInf(BasicSysRtnInf sysRtnInf) {
 		this.sysRtnInf = sysRtnInf;
 	}
 

@@ -6,10 +6,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
-import com.david.util.dto.RespBizInf;
+import com.david.util.dto.BasicBizInf;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Epcc10100101RespBizInf extends RespBizInf implements Serializable {
+public class Epcc10100101RespBizInf extends BasicBizInf implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

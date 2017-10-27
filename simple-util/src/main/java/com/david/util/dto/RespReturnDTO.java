@@ -12,23 +12,23 @@ public class RespReturnDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private RespSysRtnInf sysRtnInf;
+	private BasicSysRtnInf sysRtnInf;
 
-	private RespBizInf bizInf;
+	private BasicBizInf bizInf;
 
-	public RespSysRtnInf getSysRtnInf() {
+	public BasicSysRtnInf getSysRtnInf() {
 		return sysRtnInf;
 	}
 
-	public void setSysRtnInf(RespSysRtnInf sysRtnInf) {
+	public void setSysRtnInf(BasicSysRtnInf sysRtnInf) {
 		this.sysRtnInf = sysRtnInf;
 	}
 
-	public RespBizInf getBizInf() {
+	public BasicBizInf getBizInf() {
 		return bizInf;
 	}
 
-	public void setBizInf(RespBizInf bizInf) {
+	public void setBizInf(BasicBizInf bizInf) {
 		this.bizInf = bizInf;
 	}
 

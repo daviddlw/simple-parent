@@ -9,10 +9,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.david.util.common.JaxbDateSerializer;
-import com.david.util.dto.RespBizInf;
+import com.david.util.dto.BasicBizInf;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Epcc20500101RespBizInf extends RespBizInf implements Serializable {
+public class Epcc20500101RespBizInf extends BasicBizInf implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
