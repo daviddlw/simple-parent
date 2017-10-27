@@ -62,7 +62,8 @@ public class JaxbUtils {
 
 			try (StringWriter sw = new StringWriter()) {
 				marshaller.marshal(obj, sw);
-				result = sw.toString();
+				result = StringUtils.replaceEach(sw.toString(),
+						new String[] { "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>", "ns2:", ":ns2" }, new String[] { "", "", "" });
 			}
 		} catch (JAXBException ex) {
 			logger.error(ex.getMessage(), ex);
@@ -123,7 +124,7 @@ public class JaxbUtils {
 
 			// 对待转化你的字符串进行ns2添加处理
 			xml = StringUtils.replaceEach(xml, new String[] { "<root", "xmlns", "root>" }, new String[] { "<ns2:root", "xmlns:ns2", "ns2:root>" });
-			
+
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			try (StringReader sr = new StringReader(xml)) {
 				instance = (T) unmarshaller.unmarshal(sr);

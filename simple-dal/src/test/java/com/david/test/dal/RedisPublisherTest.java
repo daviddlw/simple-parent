@@ -4,12 +4,12 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.simple.util.JUnit4ClassRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.david.dal.model.User;
 import com.david.dal.pubsub.RedisMessageDAO;
+import com.david.util.JUnit4ClassRunner;
 
 @RunWith(JUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:spring/applicationContext-dal.xml" })

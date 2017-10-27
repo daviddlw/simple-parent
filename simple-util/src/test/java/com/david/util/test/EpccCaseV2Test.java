@@ -8,6 +8,7 @@ import org.apache.commons.lang3.RandomUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.david.util.BasicEpccCase;
 import com.david.util.common.EpccUtils;
 import com.david.util.common.JaxbUtils;
 import com.david.util.common.RsaUtils;
