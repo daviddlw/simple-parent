@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.david.util.constants.Constants;
 import com.david.util.constants.ReservationNumber;
@@ -74,5 +75,24 @@ public class EpccUtils {
 		String responseSignStr = result.substring(result.indexOf("{") + 3, result.indexOf("}"));
 		System.out.println("responseSignStr=" + responseSignStr);
 		return responseSignStr;
+	}
+
+	/**
+	 * 获取msgheader
+	 * 
+	 * @param result
+	 *            输入参数
+	 * @return MsgHeader返回
+	 */
+	public static String getMsgHeaderStr(String result) {
+		if (StringUtils.isBlank("<MsgHeader>")) {
+			throw new IllegalArgumentException("no <MsgHeader> string in the input string");
+		}
+
+		if (StringUtils.isBlank("</MsgHeader>")) {
+			throw new IllegalArgumentException("no </MsgHeader> string in the input string");
+		}
+		String msgHeaderStr = StringUtils.substring(result, result.indexOf("<MsgHeader>"), result.indexOf("</MsgHeader>") + 12);
+		return msgHeaderStr;
 	}
 }

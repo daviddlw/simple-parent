@@ -24,32 +24,67 @@ import com.david.util.constants.Constants;
 import com.david.util.constants.LogLevel;
 import com.david.util.dto.BasicSysRtnInf;
 import com.david.util.dto.CommonResponse;
+import com.david.util.dto.MsgHeader;
 import com.david.util.dto.RespCommonMsgBody;
 import com.david.util.dto.epcc10400101.Epcc10400101Request;
+import com.david.util.dto.epcc20700101.Epcc20700101Request;
 
+/**
+ * 异步回调通知地址
+ * 
+ * @author dailiwei
+ *
+ */
 @Controller
 @RequestMapping("epcc")
 public class EpccController {
-	
+
 	private static Logger logger = LoggerFactory.getLogger(LogLevel.LOG_WEB);
 
+	/**
+	 * 回调地址
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/epcc_notify.json", method = { RequestMethod.POST, RequestMethod.GET })
 	public void epccNotify(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String respStr = getEpccNotifyRequest(request);
-		
-		Epcc10400101Request epccRequest = JaxbUtils.toBean(respStr, Epcc10400101Request.class);
-		String sysRtnCd = epccRequest.getMsgBody().getSysRtnInf().getSysRtnCd();
-		String sysRtnDesc = epccRequest.getMsgBody().getSysRtnInf().getSysRtnDesc();
-		logger.info("sysRtnCd=" + sysRtnCd);
-		logger.info("sysRtnDesc=" + sysRtnDesc);
-		Assert.assertEquals(BasicEpccCase.SUCCESS_CODE, sysRtnCd);
+		String msgHeaderStr = EpccUtils.getMsgHeaderStr(respStr);
+		MsgHeader msgHeader = JaxbUtils.toBean(msgHeaderStr, MsgHeader.class);
+		if ("epcc.104.001.01".equals(msgHeader.getMsgTp())) {
+			Epcc10400101Request epccRequest = JaxbUtils.toBean(respStr, Epcc10400101Request.class);
+			String msgTp = epccRequest.getMsgHeader().getMsgTp();
+			String sysRtnCd = epccRequest.getMsgBody().getSysRtnInf().getSysRtnCd();
+			String sysRtnDesc = epccRequest.getMsgBody().getSysRtnInf().getSysRtnDesc();
+			logger.info("msgTp=" + msgTp);
+			logger.info("sysRtnCd=" + sysRtnCd);
+			logger.info("sysRtnDesc=" + sysRtnDesc);
+			Assert.assertEquals(BasicEpccCase.SUCCESS_CODE, sysRtnCd);
 
-		String bizStsCd = epccRequest.getMsgBody().getBizInf().getBizStsCd();
-		String bizStsDesc = epccRequest.getMsgBody().getBizInf().getBizStsDesc();
-		logger.info("bizStsCd=" + bizStsCd);
-		logger.info("bizStsDesc=" + bizStsDesc);
-		Assert.assertEquals(BasicEpccCase.SUCCESS_CODE, sysRtnCd);
-		
+			String bizStsCd = epccRequest.getMsgBody().getBizInf().getBizStsCd();
+			String bizStsDesc = epccRequest.getMsgBody().getBizInf().getBizStsDesc();
+			logger.info("bizStsCd=" + bizStsCd);
+			logger.info("bizStsDesc=" + bizStsDesc);
+			Assert.assertEquals(BasicEpccCase.SUCCESS_CODE, sysRtnCd);
+		} else if ("epcc.207.001.01".equals(msgHeader.getMsgTp())) {
+			Epcc20700101Request epccRequest = JaxbUtils.toBean(respStr, Epcc20700101Request.class);
+			String msgTp = epccRequest.getMsgHeader().getMsgTp();
+			String sysRtnCd = epccRequest.getMsgBody().getSysRtnInf().getSysRtnCd();
+			String sysRtnDesc = epccRequest.getMsgBody().getSysRtnInf().getSysRtnDesc();
+			logger.info("msgTp=" + msgTp);
+			logger.info("sysRtnCd=" + sysRtnCd);
+			logger.info("sysRtnDesc=" + sysRtnDesc);
+			Assert.assertEquals(BasicEpccCase.SUCCESS_CODE, sysRtnCd);
+
+			String bizStsCd = epccRequest.getMsgBody().getBizInf().getBizStsCd();
+			String bizStsDesc = epccRequest.getMsgBody().getBizInf().getBizStsDesc();
+			logger.info("bizStsCd=" + bizStsCd);
+			logger.info("bizStsDesc=" + bizStsDesc);
+			Assert.assertEquals(BasicEpccCase.SUCCESS_CODE, sysRtnCd);
+		}
+
 		String requestBody = getCommonResponse();
 		sendCommonResponse(response, requestBody);
 	}
