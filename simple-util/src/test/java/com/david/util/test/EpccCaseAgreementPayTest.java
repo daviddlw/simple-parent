@@ -12,7 +12,7 @@ import com.david.util.BasicEpccCase;
 import com.david.util.common.EpccUtils;
 import com.david.util.common.JaxbUtils;
 import com.david.util.common.RsaUtils;
-import com.david.util.constants.AcctInTpIdConstants;
+import com.david.util.constants.AcctInTpId;
 import com.david.util.constants.TrxTrmTpCd;
 import com.david.util.dto.MsgHeader;
 import com.david.util.dto.epcc20100101.Epcc20100101ReqMsgBody;
@@ -71,10 +71,10 @@ public class EpccCaseAgreementPayTest extends BasicEpccCase {
 		Epcc20100101ReqTrxInf trxInf = new Epcc20100101ReqTrxInf();
 		trxInf.setTrxId(EpccUtils.genTransSerialNo());
 		trxInf.setTrxDtTm(new Date());
-		trxInf.setTrxAmt("CNY" + new BigDecimal(RandomUtils.nextDouble(0, 1000)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+		trxInf.setTrxAmt(EpccUtils.getRandomAmount());
 		trxInf.setTrxCtgy("0110");
 		trxInf.setBizTp("100002"); // 业务种类A3待补充
-		trxInf.setAcctInTp(AcctInTpIdConstants.RECEIVABLES); // 收款扫码
+		trxInf.setAcctInTp(AcctInTpId.RECEIVABLES); // 收款扫码
 
 		Epcc20100101ReqOriTrxInf orderInf = new Epcc20100101ReqOriTrxInf();
 		orderInf.setOrderId(EpccUtils.genOrderId());

@@ -29,6 +29,7 @@ public class BasicEpccCase {
 	public static final String Z2006845000013 = "Z2006845000013";
 	public static final String C1010611003601 = "C1010611003601";
 	public static final String MSG_HEADER_SIGN_SN = "4002567531";
+	public static final String MSG_HEADER_NCRPTN_SN = "4000068829";
 	
 	protected static final String SGN_NO = "725014142";
 	protected static final String RESFD_INF_INSTG_ACCTID = "10012786190055100977";
@@ -58,6 +59,7 @@ public class BasicEpccCase {
 	public static final String EPCC_205_001_01 = "epcc.205.001.01";
 	public static final String EPCC_207_001_01 = "epcc.207.001.01";
 	public static final String EPCC_208_001_01 = "epcc.208.001.01";
+	public static final String EPCC_211_001_01 = "epcc.211.001.01";
 	public static final String EPCC_303_001_01 = "epcc.303.001.01";
 
 	public static MsgHeader getMsgHeader(String msgTp, String ncrptnSN, String dgtlEnvlpStr) {

@@ -6,7 +6,7 @@ package com.david.util.constants;
  * @author dailiwei
  *
  */
-public class AcctInTpIdConstants {
+public class AcctInTpId {
 
 	public static final String PAYMENT = "01";
 

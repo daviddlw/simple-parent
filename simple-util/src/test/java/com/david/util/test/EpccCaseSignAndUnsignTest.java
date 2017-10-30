@@ -478,7 +478,7 @@ public class EpccCaseSignAndUnsignTest extends BasicEpccCase {
 		logger.info("dgtlEnvlpStr=" + dgtlEnvlpStr);
 
 		Epcc10100101Request request = new Epcc10100101Request();
-		MsgHeader msgHeader = getMsgHeader(EPCC_101_001_01, "4000068829", dgtlEnvlpStr);
+		MsgHeader msgHeader = getMsgHeader(EPCC_101_001_01, MSG_HEADER_NCRPTN_SN, dgtlEnvlpStr);
 
 		Epcc10100101ReqMsgBody msgBody = new Epcc10100101ReqMsgBody();
 		Epcc10100101ReqSgnInf reqSgnInf = new Epcc10100101ReqSgnInf();
@@ -596,7 +596,7 @@ public class EpccCaseSignAndUnsignTest extends BasicEpccCase {
 		String tranSerialNo = EpccUtils.genTransSerialNo();
 		Epcc10300101Request request = new Epcc10300101Request();
 
-		MsgHeader msgHeader = getMsgHeader(EPCC_103_001_01, "4000068829", dgtlEnvlpStr);
+		MsgHeader msgHeader = getMsgHeader(EPCC_103_001_01, MSG_HEADER_NCRPTN_SN, dgtlEnvlpStr);
 		Epcc10300101ReqMsgBody msgBody = new Epcc10300101ReqMsgBody();
 		Epcc10300101ReqSgnInf sgnInf = new Epcc10300101ReqSgnInf();
 		sgnInf.setSgnAcctIssrId(C1010611003601);

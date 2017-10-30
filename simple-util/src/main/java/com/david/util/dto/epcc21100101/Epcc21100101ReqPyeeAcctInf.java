@@ -26,4 +26,50 @@ public class Epcc21100101ReqPyeeAcctInf implements Serializable {
 	@XmlElement(name = "PyeeBkNm")
 	private String pyeeBkNm;
 
+	public String getPyeeAcctTp() {
+		return pyeeAcctTp;
+	}
+
+	public void setPyeeAcctTp(String pyeeAcctTp) {
+		this.pyeeAcctTp = pyeeAcctTp;
+	}
+
+	public String getPyeeBkId() {
+		return pyeeBkId;
+	}
+
+	public void setPyeeBkId(String pyeeBkId) {
+		this.pyeeBkId = pyeeBkId;
+	}
+
+	public String getPyeeSgnNo() {
+		return pyeeSgnNo;
+	}
+
+	public void setPyeeSgnNo(String pyeeSgnNo) {
+		this.pyeeSgnNo = pyeeSgnNo;
+	}
+
+	public String getPyeeBkNo() {
+		return pyeeBkNo;
+	}
+
+	public void setPyeeBkNo(String pyeeBkNo) {
+		this.pyeeBkNo = pyeeBkNo;
+	}
+
+	public String getPyeeBkNm() {
+		return pyeeBkNm;
+	}
+
+	public void setPyeeBkNm(String pyeeBkNm) {
+		this.pyeeBkNm = pyeeBkNm;
+	}
+
+	@Override
+	public String toString() {
+		return "Epcc21100101ReqPyeeAcctInf [pyeeAcctTp=" + pyeeAcctTp + ", pyeeBkId=" + pyeeBkId + ", pyeeSgnNo=" + pyeeSgnNo + ", pyeeBkNo=" + pyeeBkNo
+				+ ", pyeeBkNm=" + pyeeBkNm + "]";
+	}
+
 }

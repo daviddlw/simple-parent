@@ -1,5 +1,6 @@
 package com.david.util.common;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -49,6 +50,15 @@ public class EpccUtils {
 	public static String genOrderId() {
 		String orderId = String.format("%s%s", sdf.format(new Date()), RandomStringUtils.randomNumeric(12));
 		return orderId;
+	}
+
+	/**
+	 * 生成随机金额
+	 * 
+	 * @return 随机金额
+	 */
+	public static String getRandomAmount() {
+		return "CNY" + new BigDecimal(RandomUtils.nextDouble(0, 1000)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
 
 	/**
