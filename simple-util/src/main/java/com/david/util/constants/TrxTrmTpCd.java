@@ -6,7 +6,7 @@ package com.david.util.constants;
  * @author dailiwei
  *
  */
-public class TrxTrmTpCdConstants {
+public class TrxTrmTpCd {
 	public static final String PC = "01";
 	public static final String MOBILE = "02";
 	public static final String IPAD = "03";

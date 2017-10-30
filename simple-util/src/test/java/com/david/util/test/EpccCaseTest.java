@@ -33,7 +33,7 @@ import com.david.util.dto.epcc40100101.Epcc40100101RespCtrlNbInfLst;
 import com.david.util.dto.epcc40100101.Epcc40100101Response;
 
 /**
- * 网联用例-签约类
+ * 签约，解约101，103
  * 
  * @author dailiwei
  *

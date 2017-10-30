@@ -30,7 +30,7 @@ import com.david.util.dto.epcc10400101.Epcc10400101Request;
 import com.david.util.dto.epcc20700101.Epcc20700101Request;
 
 /**
- * 异步回调通知地址
+ * 通知类
  * 
  * @author dailiwei
  *
@@ -53,7 +53,7 @@ public class EpccController {
 		String respStr = getEpccNotifyRequest(request);
 		String msgHeaderStr = EpccUtils.getMsgHeaderStr(respStr);
 		MsgHeader msgHeader = JaxbUtils.toBean(msgHeaderStr, MsgHeader.class);
-		if ("epcc.104.001.01".equals(msgHeader.getMsgTp())) {
+		if (BasicEpccCase.EPCC_104_001_01.equals(msgHeader.getMsgTp())) {
 			Epcc10400101Request epccRequest = JaxbUtils.toBean(respStr, Epcc10400101Request.class);
 			String msgTp = epccRequest.getMsgHeader().getMsgTp();
 			String sysRtnCd = epccRequest.getMsgBody().getSysRtnInf().getSysRtnCd();
@@ -68,7 +68,7 @@ public class EpccController {
 			logger.info("bizStsCd=" + bizStsCd);
 			logger.info("bizStsDesc=" + bizStsDesc);
 			Assert.assertEquals(BasicEpccCase.SUCCESS_CODE, sysRtnCd);
-		} else if ("epcc.207.001.01".equals(msgHeader.getMsgTp())) {
+		} else if (BasicEpccCase.EPCC_207_001_01.equals(msgHeader.getMsgTp())) {
 			Epcc20700101Request epccRequest = JaxbUtils.toBean(respStr, Epcc20700101Request.class);
 			String msgTp = epccRequest.getMsgHeader().getMsgTp();
 			String sysRtnCd = epccRequest.getMsgBody().getSysRtnInf().getSysRtnCd();
@@ -76,13 +76,13 @@ public class EpccController {
 			logger.info("msgTp=" + msgTp);
 			logger.info("sysRtnCd=" + sysRtnCd);
 			logger.info("sysRtnDesc=" + sysRtnDesc);
-			Assert.assertEquals(BasicEpccCase.SUCCESS_CODE, sysRtnCd);
+//			Assert.assertEquals(BasicEpccCase.SUCCESS_CODE, sysRtnCd);
 
 			String bizStsCd = epccRequest.getMsgBody().getBizInf().getBizStsCd();
 			String bizStsDesc = epccRequest.getMsgBody().getBizInf().getBizStsDesc();
 			logger.info("bizStsCd=" + bizStsCd);
 			logger.info("bizStsDesc=" + bizStsDesc);
-			Assert.assertEquals(BasicEpccCase.SUCCESS_CODE, sysRtnCd);
+//			Assert.assertEquals(BasicEpccCase.SUCCESS_CODE, sysRtnCd);
 		}
 
 		String requestBody = getCommonResponse();
@@ -161,7 +161,7 @@ public class EpccController {
 		String signStr = RsaUtils.sign(BasicEpccCase.privateKey, respStr);
 		logger.info("signStr=" + signStr);
 		String requestBody = String.format("%s%s{S:%s}", JaxbUtils.XML_HEADER, respStr, signStr);
-		logger.info("requestBody=" + requestBody);
+		logger.info("common_response=" + requestBody);
 		return requestBody;
 	}
 

@@ -13,7 +13,7 @@ import com.david.util.common.EpccUtils;
 import com.david.util.common.JaxbUtils;
 import com.david.util.common.RsaUtils;
 import com.david.util.constants.AcctInTpIdConstants;
-import com.david.util.constants.TrxTrmTpCdConstants;
+import com.david.util.constants.TrxTrmTpCd;
 import com.david.util.dto.MsgHeader;
 import com.david.util.dto.epcc20100101.Epcc20100101ReqMsgBody;
 import com.david.util.dto.epcc20100101.Epcc20100101ReqOriTrxInf;
@@ -25,7 +25,7 @@ import com.david.util.dto.epcc20100101.Epcc20100101Request;
 import com.david.util.dto.epcc20100101.Epcc20100101Response;
 
 /**
- * 网联-协议支付
+ * 协议支付201
  * 
  * @author dailiwei
  *
@@ -34,22 +34,23 @@ public class EpccCaseV2Test extends BasicEpccCase {
 
 	/**
 	 * 协议支付
+	 * 
 	 * @throws Exception
 	 */
 	private String doAgreementPayment() throws Exception {
-		
+
 		// 产生随机aes256bit-32字节长度秘钥
 		String aeskey = RandomStringUtils.randomAlphanumeric(32);
 		logger.info("aeskey=" + aeskey + ",length=" + aeskey.length());
 		// 使用网联平台公钥对该信封信息进行加密
 		String publicKey = RsaUtils.convertCertFileToRsaPublicKey(certPath);
 		logger.info("publicKey=" + publicKey);
-		
+
 		Epcc20100101ReqPyerInf pyerInf = new Epcc20100101ReqPyerInf();
 		pyerInf.setPyerAcctIssrId(C1010611003601);
 		pyerInf.setPyerAcctTp(ACCT_TP_00);
 		pyerInf.setSgnNo(SGN_NO);
-		pyerInf.setPyerTrxTrmTp(TrxTrmTpCdConstants.MOBILE);
+		pyerInf.setPyerTrxTrmTp(TrxTrmTpCd.MOBILE);
 		pyerInf.setPyerTrxTrmNo("F93P72HCFR9M");
 
 		Epcc20100101ReqPyeeInf pyeeInf = new Epcc20100101ReqPyeeInf();
@@ -59,7 +60,7 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		pyeeInf.setPyeeAcctTp("04");
 		pyeeInf.setPyeeCtryNo("CN");
 		pyeeInf.setPyeeAreaNo("110102");
-		pyeeInf.setPyeeTrxTrmTp(TrxTrmTpCdConstants.BAR_CODE);
+		pyeeInf.setPyeeTrxTrmTp(TrxTrmTpCd.BAR_CODE);
 		pyeeInf.setPyeeTrxTrmNo("1D6AP1500");
 
 		Epcc20100101ReqResfdInf resfdInf = new Epcc20100101ReqResfdInf();
@@ -95,10 +96,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		request.setMsgBody(msgBody);
 
 		String result = postToEpccGateway(EPCC_PROT_443_URL, EPCC_201_001_01, request);
-		
+
 		String responseStr = EpccUtils.getResponseStr(result);
 		String responseSignStr = EpccUtils.getResponseSign(result);
-		
+
 		// 验签
 		boolean verifySign = RsaUtils.vertify(publicKey, responseStr, responseSignStr);
 		logger.info("verifySign=" + verifySign);
@@ -108,7 +109,7 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		Epcc20100101Response response = JaxbUtils.toBean(String.format("%s%s", JaxbUtils.XML_HEADER, responseStr), Epcc20100101Response.class);
 		logger.info(response.toString());
 		Assert.assertEquals(SUCCESS_CODE, response.getMsgBody().getSysRtnInf().getSysRtnCd());
-		logger.info("TrxStatus="+response.getMsgBody().getBizInf().getTrxStatus());
+		logger.info("TrxStatus=" + response.getMsgBody().getBizInf().getTrxStatus());
 		logger.info("BizStsCd=" + response.getMsgBody().getBizInf().getBizStsCd());
 		logger.info("BizStsDesc=" + response.getMsgBody().getBizInf().getBizStsDesc());
 		return response.getMsgBody().getBizInf().getBizStsCd();
@@ -116,6 +117,7 @@ public class EpccCaseV2Test extends BasicEpccCase {
 
 	/**
 	 * case(201001~201003)
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -123,9 +125,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals(SUCCESS_CODE, respCode);
 	}
-	
+
 	/**
 	 * case-201100
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -133,9 +136,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB520011", respCode);
 	}
-	
+
 	/**
 	 * case-201102
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -143,9 +147,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB521013", respCode);
 	}
-	
+
 	/**
 	 * case-201103
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -153,9 +158,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB521014", respCode);
 	}
-	
+
 	/**
 	 * case-201104
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -163,9 +169,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB521015", respCode);
 	}
-	
+
 	/**
 	 * case-201105
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -173,9 +180,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB521023", respCode);
 	}
-	
+
 	/**
 	 * case-201106
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -183,9 +191,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB521024", respCode);
 	}
-	
+
 	/**
 	 * case-201107
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -193,9 +202,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB521025", respCode);
 	}
-	
+
 	/**
 	 * case-201108
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -203,9 +213,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB520005", respCode);
 	}
-	
+
 	/**
 	 * case-201109
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -213,9 +224,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB520006", respCode);
 	}
-	
+
 	/**
 	 * case-201110
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -223,9 +235,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB520007", respCode);
 	}
-	
+
 	/**
 	 * case-201111
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -233,9 +246,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB520008", respCode);
 	}
-	
+
 	/**
 	 * case-201112
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -243,9 +257,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB520009", respCode);
 	}
-	
+
 	/**
 	 * case-201113
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -253,9 +268,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB520010", respCode);
 	}
-	
+
 	/**
 	 * case-201114
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -263,9 +279,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB521021", respCode);
 	}
-	
+
 	/**
 	 * case-201115
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -273,9 +290,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB521022", respCode);
 	}
-	
+
 	/**
 	 * case-201116
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -283,9 +301,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB521026", respCode);
 	}
-	
+
 	/**
 	 * case-201117
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -293,9 +312,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB521027", respCode);
 	}
-	
+
 	/**
 	 * case-201118
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -303,9 +323,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB500018", respCode);
 	}
-	
+
 	/**
 	 * case-201119-failed
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -313,9 +334,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("RB600005", respCode);
 	}
-	
+
 	/**
 	 * case-201120
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -323,9 +345,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB500005", respCode);
 	}
-	
+
 	/**
 	 * case-201122
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -333,9 +356,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB521096", respCode);
 	}
-	
+
 	/**
 	 * case-201124
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -343,9 +367,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB520095", respCode);
 	}
-	
+
 	/**
 	 * case-201125
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -353,9 +378,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB520017", respCode);
 	}
-	
+
 	/**
 	 * case-201126
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -363,9 +389,10 @@ public class EpccCaseV2Test extends BasicEpccCase {
 		String respCode = doAgreementPayment();
 		Assert.assertEquals("PB520097", respCode);
 	}
-	
+
 	/**
 	 * case-201127
+	 * 
 	 * @throws Exception
 	 */
 	@Test

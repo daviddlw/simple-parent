@@ -1,4 +1,4 @@
-package com.david.util.dto.epcc20500101;
+package com.david.util.dto;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,10 +9,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.david.util.common.JaxbDateSerializer;
-import com.david.util.dto.BasicBizInf;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Epcc20500101RespBizInf extends BasicBizInf implements Serializable {
+public class BasicRespBizInf extends BasicBizInf implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -27,6 +26,9 @@ public class Epcc20500101RespBizInf extends BasicBizInf implements Serializable 
 
 	@XmlElement(name = "DbtrBankId")
 	private String dbtrBankId;
+
+	@XmlElement(name = "CdtrBankId")
+	private String cdtrBankId;
 
 	@XmlElement(name = "TrxAmt")
 	private String trxAmt;
@@ -73,6 +75,14 @@ public class Epcc20500101RespBizInf extends BasicBizInf implements Serializable 
 		this.dbtrBankId = dbtrBankId;
 	}
 
+	public String getCdtrBankId() {
+		return cdtrBankId;
+	}
+
+	public void setCdtrBankId(String cdtrBankId) {
+		this.cdtrBankId = cdtrBankId;
+	}
+
 	public String getTrxAmt() {
 		return trxAmt;
 	}
@@ -107,9 +117,8 @@ public class Epcc20500101RespBizInf extends BasicBizInf implements Serializable 
 
 	@Override
 	public String toString() {
-		return "Epcc20500101RespBizInf [rpFlg=" + rpFlg + ", trxCtgy=" + trxCtgy + ", trxId=" + trxId + ", dbtrBankId=" + dbtrBankId + ", trxAmt="
-				+ trxAmt + ", trxStatus=" + trxStatus + ", trxFinishTm=" + trxFinishTm + ", batchId=" + batchId + ", getBizStsCd()=" + getBizStsCd()
-				+ ", getBizStsDesc()=" + getBizStsDesc() + "]";
+		return "BasicRespBizInf [rpFlg=" + rpFlg + ", trxCtgy=" + trxCtgy + ", trxId=" + trxId + ", dbtrBankId=" + dbtrBankId + ", cdtrBankId=" + cdtrBankId
+				+ ", trxAmt=" + trxAmt + ", trxStatus=" + trxStatus + ", trxFinishTm=" + trxFinishTm + ", batchId=" + batchId + "]";
 	}
 
 }
