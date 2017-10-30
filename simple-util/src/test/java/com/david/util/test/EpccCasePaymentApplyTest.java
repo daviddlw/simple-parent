@@ -117,7 +117,9 @@ public class EpccCasePaymentApplyTest extends BasicEpccCase {
 		// 组装成对应的JavaBean
 		Epcc21100101Response response = JaxbUtils.toBean(String.format("%s%s", JaxbUtils.XML_HEADER, responseStr), Epcc21100101Response.class);
 		logger.info(response.toString());
-		Assert.assertEquals(SUCCESS_CODE, response.getMsgBody().getSysRtnInf().getSysRtnCd());
+//		Assert.assertEquals(SUCCESS_CODE, response.getMsgBody().getSysRtnInf().getSysRtnCd());
+		logger.info("SysRtnCd=" + response.getMsgBody().getSysRtnInf().getSysRtnCd());
+		logger.info("SysRtnDesc" + response.getMsgBody().getSysRtnInf().getSysRtnDesc());
 		logger.info("BizStsCd=" + response.getMsgBody().getBizInf().getBizStsCd());
 		logger.info("BizStsDesc=" + response.getMsgBody().getBizInf().getBizStsDesc());
 		
@@ -135,5 +137,225 @@ public class EpccCasePaymentApplyTest extends BasicEpccCase {
 	public void epcc21100101Test() throws Exception {
 		String respCode = doPaymentApply();
 		Assert.assertEquals(SUCCESS_CODE, respCode);
+	}
+	
+	/**
+	 * case 211101
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211101Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RB623013", respCode);
+	}
+	
+	/**
+	 * case 211102
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211102Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RB623014", respCode);
+	}
+	
+	/**
+	 * case 211103
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211103Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RB623015", respCode);
+	}
+	
+	/**
+	 * case 211104
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211104Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RB623096", respCode);
+	}
+	
+	/**
+	 * case 211105
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211105Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RB623021", respCode);
+	}
+	
+	/**
+	 * case 211106
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211106Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RB623022", respCode);
+	}
+	
+	/**
+	 * case 211107
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211107Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RB623023", respCode);
+	}
+	
+	/**
+	 * case 211108
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211108Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RB623024", respCode);
+	}
+	
+	/**
+	 * case 211109
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211109Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RB623025", respCode);
+	}
+	
+	/**
+	 * case 211110
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211110Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RB623031", respCode);
+	}
+	
+	/**
+	 * case 211111
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211111Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RB620005", respCode);
+	}
+	
+	/**
+	 * case 211112
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211112Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RB620006", respCode);
+	}
+	
+	/**
+	 * case 211113
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211113Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RB620007", respCode);
+	}
+	
+	/**
+	 * case 211114
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211114Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RB620008", respCode);
+	}
+	
+	/**
+	 * case 211115
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211115Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RB620009", respCode);
+	}
+	
+	/**
+	 * case 211116
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211116Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RB620010", respCode);
+	}
+	
+	/**
+	 * case 211117
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211117Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("PB520011", respCode);
+	}
+	
+	/**
+	 * case 211118
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211118Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("PS500002", respCode);
+	}
+	
+	/**
+	 * case 211119
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211119Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RS600002", respCode);
+	}
+	
+	/**
+	 * case 211120
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211120Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("PB522099", respCode);
+	}
+	
+	/**
+	 * case 211121
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211121Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RB622099", respCode);
+	}
+	
+	/**
+	 * case 211122
+	 * @throws Exception 
+	 */
+	@Test
+	public void epcc21100101Case211122Test() throws Exception {
+		String respCode = doPaymentApply();
+		Assert.assertEquals("RB620095", respCode);
 	}
 }
