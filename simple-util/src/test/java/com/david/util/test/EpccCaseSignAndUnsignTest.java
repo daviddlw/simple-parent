@@ -38,7 +38,7 @@ import com.david.util.dto.epcc40100101.Epcc40100101Response;
  * @author dailiwei
  *
  */
-public class EpccCaseTest extends BasicEpccCase {
+public class EpccCaseSignAndUnsignTest extends BasicEpccCase {
 
 	/**
 	 * epcc.401.001.01流水号6位控制位请求

@@ -57,6 +57,7 @@ public class BasicEpccCase {
 	public static final String EPCC_201_001_01 = "epcc.201.001.01";
 	public static final String EPCC_205_001_01 = "epcc.205.001.01";
 	public static final String EPCC_207_001_01 = "epcc.207.001.01";
+	public static final String EPCC_208_001_01 = "epcc.208.001.01";
 	public static final String EPCC_303_001_01 = "epcc.303.001.01";
 
 	public static MsgHeader getMsgHeader(String msgTp, String ncrptnSN, String dgtlEnvlpStr) {

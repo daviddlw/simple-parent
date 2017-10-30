@@ -30,7 +30,7 @@ import com.david.util.dto.epcc20100101.Epcc20100101Response;
  * @author dailiwei
  *
  */
-public class EpccCaseV2Test extends BasicEpccCase {
+public class EpccCaseAgreementPayTest extends BasicEpccCase {
 
 	/**
 	 * 协议支付

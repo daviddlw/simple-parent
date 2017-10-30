@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
+import com.david.util.dto.BasicOriTrxInf;
 import com.david.util.dto.BasicResfdInf;
 import com.david.util.dto.BasicTrxInf;
 
@@ -30,7 +31,7 @@ public class Epcc20500101ReqMsgBody implements Serializable {
 	private BasicTrxInf trxInf;
 
 	@XmlElement(name="OriTrxInf")
-	private Epcc20500101ReqOriTrxInf oriTrxInf;
+	private BasicOriTrxInf oriTrxInf;
 
 	@XmlElement(name="BatchId")
 	private String batchId;
@@ -75,11 +76,11 @@ public class Epcc20500101ReqMsgBody implements Serializable {
 		this.trxInf = trxInf;
 	}
 
-	public Epcc20500101ReqOriTrxInf getOriTrxInf() {
+	public BasicOriTrxInf getOriTrxInf() {
 		return oriTrxInf;
 	}
 
-	public void setOriTrxInf(Epcc20500101ReqOriTrxInf oriTrxInf) {
+	public void setOriTrxInf(BasicOriTrxInf oriTrxInf) {
 		this.oriTrxInf = oriTrxInf;
 	}
 

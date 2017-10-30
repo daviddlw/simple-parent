@@ -13,12 +13,12 @@ import com.david.util.BasicEpccCase;
 import com.david.util.common.EpccUtils;
 import com.david.util.common.JaxbUtils;
 import com.david.util.common.RsaUtils;
-import com.david.util.dto.MsgHeader;
+import com.david.util.dto.BasicOriTrxInf;
 import com.david.util.dto.BasicResfdInf;
 import com.david.util.dto.BasicTrxInf;
+import com.david.util.dto.MsgHeader;
 import com.david.util.dto.RespReturnDTO;
 import com.david.util.dto.epcc20500101.Epcc20500101ReqMsgBody;
-import com.david.util.dto.epcc20500101.Epcc20500101ReqOriTrxInf;
 import com.david.util.dto.epcc20500101.Epcc20500101ReqPyeeInf;
 import com.david.util.dto.epcc20500101.Epcc20500101ReqPyerInf;
 import com.david.util.dto.epcc20500101.Epcc20500101Request;
@@ -30,7 +30,7 @@ import com.david.util.dto.epcc20500101.Epcc20500101Response;
  * @author dailiwei
  *
  */
-public class EpccCaseV3Test extends BasicEpccCase {
+public class EpccCasedofundTest extends BasicEpccCase {
 
 	private String doRefund() throws Exception {
 		RespReturnDTO respReturnDTO = doRefundRespReturnDTO();
@@ -73,7 +73,7 @@ public class EpccCaseV3Test extends BasicEpccCase {
 		trxInf.setTrxDtTm(new Date());
 		trxInf.setTrxAmt(amount);
 
-		Epcc20500101ReqOriTrxInf oriTrxInf = new Epcc20500101ReqOriTrxInf();
+		BasicOriTrxInf oriTrxInf = new BasicOriTrxInf();
 		oriTrxInf.setOriTrxId(EpccUtils.genTransSerialNo());
 		oriTrxInf.setOriDbtrBankId("SM" + EpccUtils.genTransSerialNo());
 		oriTrxInf.setOriTrxAmt(amount);

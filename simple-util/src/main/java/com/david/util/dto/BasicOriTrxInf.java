@@ -1,4 +1,4 @@
-package com.david.util.dto.epcc20500101;
+package com.david.util.dto;
 
 import java.io.Serializable;
 
@@ -7,10 +7,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Epcc20500101ReqOriTrxInf implements Serializable {
+public class BasicOriTrxInf implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@XmlElement(name = "OriTrxId")
 	private String oriTrxId;
 
@@ -19,7 +19,7 @@ public class Epcc20500101ReqOriTrxInf implements Serializable {
 
 	@XmlElement(name = "OriTrxAmt")
 	private String oriTrxAmt;
-
+	
 	public String getOriTrxId() {
 		return oriTrxId;
 	}
@@ -43,7 +43,7 @@ public class Epcc20500101ReqOriTrxInf implements Serializable {
 	public void setOriTrxAmt(String oriTrxAmt) {
 		this.oriTrxAmt = oriTrxAmt;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Epcc20500101ReqOriTrxInf [oriTrxId=" + oriTrxId + ", oriDbtrBankId=" + oriDbtrBankId + ", oriTrxAmt=" + oriTrxAmt + "]";
