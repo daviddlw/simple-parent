@@ -34,7 +34,7 @@ public class BasicEpccCase {
 	protected static final String SGN_NO = "725014142";
 	protected static final String RESFD_INF_INSTG_ACCTID = "10012786190055100977";
 	
-	protected static final String EPCC_PROT_443_URL = "https://59.151.65.97:443/preSvr";
+	protected static final String EPCC_PROT_443_URL = "https://221.122.73.124:443/preSvr";
 	protected static final String EPCC_PROT_551_URL = "https://59.151.65.97:551/preSvr";
 	protected static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	protected static final String ACCT_TP_00 = "00";
